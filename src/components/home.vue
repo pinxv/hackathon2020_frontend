@@ -52,7 +52,9 @@
         />
       </amap>
     </div>
-
+	<div class="login_button_container">
+		<el-button type="primary" @click="login">管理员登录</el-button>
+	</div>
   </div>
 </template>
 
@@ -91,6 +93,9 @@ export default {
         this.center = [e.lnglat.lng, e.lnglat.lat];
       }
     },
+	login() {
+		this.$router.push("/login");
+	}
   },
 };
 </script>
@@ -124,5 +129,12 @@ export default {
 		position: absolute;
 		left: 0;
 		top: 0;
+	}
+	/* 登录按钮 */
+	.login_button_container {
+		position: absolute;
+		right: 5px;
+		bottom: 5px;
+		z-index: 2;
 	}
 </style>
