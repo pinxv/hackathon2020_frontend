@@ -27,31 +27,43 @@
 				      text-color="#fff"
 				      active-text-color="#ffd04b"
 					  :collapse="isCollapse"
-					  :collapse-transition="false">
+					  :collapse-transition="false"
+					  :router="true">
+					  <!-- 欢迎界面 -->
+					  <el-menu-item index="/welcome">
+					    <i class="el-icon-setting"></i>
+					    <span slot="title">主界面</span>
+					  </el-menu-item>
+					  <!-- 货物管理侧边栏 -->
 				      <el-submenu index="1">
 				        <template slot="title">
 				          <i class="el-icon-location"></i>
 				          <span>货物管理</span>
 				        </template>
 				        <el-menu-item-group>
-				          <el-menu-item index="1-1">货物数据查询</el-menu-item>
-				          <el-menu-item index="1-2">货物数据上传</el-menu-item>
-						  <el-menu-item index="1-2">货物数据修改</el-menu-item>
+				          <el-menu-item index="/query">货物数据查询</el-menu-item>
+				          <el-menu-item index="/upload">货物数据上传</el-menu-item>
+						  <el-menu-item index="/modify">货物数据修改</el-menu-item>
 				        </el-menu-item-group>
-				        
+				        <!-- 风险监测侧边栏 -->
 				      </el-submenu>
-				      <el-menu-item index="2">
+				      <el-menu-item index="/riskMonitoring">
 				        <i class="el-icon-menu"></i>
 				        <span slot="title">风险监测</span>
 				      </el-menu-item>
-				      <el-menu-item index="4">
+					  <!-- 返回首页 -->
+				      <el-menu-item index="/home">
 				        <i class="el-icon-setting"></i>
-				        <span slot="title">返回首页</span>
+				        <span slot="title">退出登录</span>
 				      </el-menu-item>
+					  
 				    </el-menu>
 			</el-aside>
 			<!-- 右侧主要区域 -->
-		    <el-main>Main</el-main>
+		    <el-main>
+				<!-- 路由占位符 -->
+				<router-view></router-view>
+			</el-main>
 		  </el-container>
 		</el-container>
 	</div>
@@ -93,7 +105,6 @@
 	  /* 侧边栏 */
 	.el-aside {
 	  background-color: rgb(84,92,100);
-	  transition: all 0.3s ease 0;
 	 }
 	 /* 解决侧边栏不对齐问题 */
 	.el-menu {
