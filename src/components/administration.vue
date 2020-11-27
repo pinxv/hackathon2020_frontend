@@ -16,7 +16,8 @@
 		  </el-header>
 		  <el-container>
 			  <!-- 左侧边栏 -->
-		    <el-aside width="200px">
+		    <el-aside :width="isCollapse ? '64px':'200px'">
+				<div class="toggle-button" @click="toggle_collapse">|||</div>
 				 <el-menu
 				      default-active="2"
 				      class="el-menu-vertical-demo"
@@ -24,7 +25,9 @@
 				      @close="handleClose"
 				      background-color="#545c64"
 				      text-color="#fff"
-				      active-text-color="#ffd04b">
+				      active-text-color="#ffd04b"
+					  :collapse="isCollapse"
+					  :collapse-transition="false">
 				      <el-submenu index="1">
 				        <template slot="title">
 				          <i class="el-icon-location"></i>
@@ -55,6 +58,20 @@
 </template>
 
 <script>
+	export default {
+		data() {
+			return {
+				//是否折叠侧边栏
+				isCollapse:false
+			}
+		},
+		methods: {
+			// 折叠侧边栏
+			toggle_collapse() {
+				this.isCollapse = ! this.isCollapse
+			}
+		}
+	}
 </script>
 
 <style>
@@ -73,15 +90,29 @@
 	  align-items: center;
 	  
 	 }
-	  
+	  /* 侧边栏 */
 	.el-aside {
-	  background-color: #D3DCE6;
-	  border-right: none;
+	  background-color: rgb(84,92,100);
+	  transition: all 0.3s ease 0;
 	 }
-	  
+	 /* 解决侧边栏不对齐问题 */
+	.el-menu {
+		border-right: none !important;
+	}
+	/* 实现侧边栏的折叠 */  
+	.toggle-button {
+		background-color: rgba(84,92,100,.2);
+		color: white;
+		font-size: 10px;
+		line-height: 22px;
+		text-align: center;
+		letter-spacing: 0.2em;
+		cursor: pointer;
+	}
 	.el-main {
 	    background-color: #E9EEF3;
 	    
 	}
+	
 	  
 </style>
