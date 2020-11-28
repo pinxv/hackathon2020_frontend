@@ -124,7 +124,7 @@
 		    },
 			methods: {
 			      submitForm(formName) {
-			        this.$refs[formName].validate((valid) => {
+			        /*this.$refs[formName].validate((valid) => {
 			          if (valid) {
 			            alert('submit!');
 						var that=this;
@@ -138,7 +138,7 @@
 			            console.log('error submit!!');
 			            return false;
 			          }
-			        });
+			        });*/
 			      },
 			      resetForm(formName) {
 			        this.$refs[formName].resetFields();
