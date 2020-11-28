@@ -5,6 +5,8 @@
 		<div class="img_title">
 			<img src="../assets/img/冯虚御风标题白色.png" alt="">
 		</div>
+
+		
 	  <!-- 登录模块 -->
 	  <div class="login_box">
 	    <!-- 登录表单 -->
@@ -51,6 +53,7 @@
 			
 		  }
 		},
+
 		methods: {
 			login() {
 				var that=this;
@@ -72,6 +75,7 @@
 	  background-color: rgba(255,255,255,.5);
 	  height: 100%;
 	}
+
 	.img_header {
 		height: 30%;
 		background-image: url(../assets/img/路.jpg);
