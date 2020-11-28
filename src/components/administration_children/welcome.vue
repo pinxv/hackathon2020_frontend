@@ -2,8 +2,8 @@
 	<div style="width: 100%; height: 100%; background-color: rgba(41,41,61,.7);">
 	<div id='carousel_container'>
 		<el-carousel style="height: 140%;" type="card" :interval="4000">
-		      <el-carousel-item v-for="item in 4" :key="item">
-		        <h3 class="small"></h3>
+		      <el-carousel-item v-for="index in 6" :key="index">
+		        
 		      </el-carousel-item>
 		    </el-carousel>
 	</div>
