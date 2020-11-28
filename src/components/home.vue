@@ -1,7 +1,7 @@
 <template>
   <div class="home">
 	  <div class="left_news_container">
-		  <el-button @click="loadNews" type="primary" style="margin-left: 16px;">
+		  <el-button @click="loadNews(2)" type="primary" style="margin-left: 16px;">
 		    相关新闻
 		  </el-button>
 		  
@@ -11,8 +11,9 @@
 		    :before-close="handleClose"
 			:modal="false">
 		    <el-card class="news_list">
-		      <div v-for="o in 4" :key="o" class="text item">
-		        {{'列表内容 ' + o }}
+		      <div v-for="news in news_array" class="text item">
+				  <a :href="news.url">{{news.title}}</a>
+		        
 		      </div>
 		    </el-card>
 		  </el-drawer>
@@ -118,6 +119,7 @@ export default {
 	          .catch(_ => {});
 	      },
 	//登录
+	// 登录
 	login() {
 		this.$router.push("/login");
 	},
@@ -163,9 +165,10 @@ export default {
 		}
 		console.log("绘制标记完成");
 	},
-	//加载风险地区新闻
-	loadNews() {
+	//根据id加载风险地区新闻
+	loadNews(id) {
 		this.drawer = true;
+		this.drawRiskAreaNews(id);
 	},
 	//根据id改善新闻请求并渲染新闻
 	drawRiskAreaNews(id) {
@@ -186,7 +189,8 @@ export default {
 			}
 		},function(error){
 			that.$message.error("风险地区新闻加载失败！");
-		})
+		});
+		
 	},
 	//行政区划绘制
 	drawBounds(map,adcode,district,polygons) {
