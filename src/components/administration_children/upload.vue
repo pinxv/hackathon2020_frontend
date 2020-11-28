@@ -141,11 +141,11 @@
 				        var geolocation = new AMap.Geolocation({
 				            enableHighAccuracy: true,//是否使用高精度定位，默认:true
 				            timeout: 10000,          //超过10秒后停止定位，默认：5s //定位成功后是否自动调整地图视野到定位点
-				
+								
 				        });
 				        geolocation.getCurrentPosition(function(status,result){
 				            if(status=='complete'){
-				                that.start_place=result.addressComponent.province+result.addressComponent.city+result.addressComponent.district+result.addressComponent.street;
+				                that.ruleForm.start_place=result.addressComponent.province+result.addressComponent.city+result.addressComponent.district+result.addressComponent.street;
 				            }else{
 				                alert("请求出错"+result.info+result.message);
 				            }
@@ -161,7 +161,6 @@
 						,"sum":parseInt(that.ruleForm.num),"destination":that.ruleForm.end_place,"place":that.ruleForm.start_place}).then(function(response){
 							that.dialogVisible=true;
 							that.imgurl=response.data.data;
-							
 						},function(error){
 							that.$message.error("提交失败！"+error);
 						})

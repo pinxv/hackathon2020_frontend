@@ -29,7 +29,7 @@
 		
 		<!--搜索-->
 		<div id="search_container" style="float: left; width: 60%; padding-left: 17%; padding-top: 3%;"  >
-			<el-input id='input' v-model="id" placeholder="请输入单号"></el-input>
+			<el-input id='input' v-model="UUID" placeholder="请输入单号"></el-input>
 		</div>
 		<div id="search_container" style="float: left;padding-left: 1%; padding-top: 3%;">
 			<el-button id='search' @click="search">查询</el-button>
@@ -48,7 +48,7 @@
 			       </el-table-column>
 			       <el-table-column
 			         prop="name"
-			         label="中转站信息"
+			         label="货物信息"
 			         width="180">
 			       </el-table-column>
 			       <el-table-column
@@ -66,29 +66,35 @@
 			return {
 				tableVisible:false,
 				dialogVisible:false,
-				id:'',
-				tableData: [{
-				            date: '2016-05-02',
-				            name: '中转站',
-				            address: '上海市普陀区金沙江路 1518 弄'
-				          }, {
-				            date: '2016-05-04',
-				            name: '中转站',
-				            address: '上海市普陀区金沙江路 1517 弄'
-				          }, {
-				            date: '2016-05-01',
-				            name: '中转站',
-				            address: '上海市普陀区金沙江路 1519 弄'
-				          }, {
-				            date: '2016-05-03',
-				            name: '中转站',
-				            address: '上海市普陀区金沙江路 1516 弄'
-				          }],
+				UUID:'',
+				ruleForm: {
+				  name: '',
+				  //num:'',
+				  place:'',
+				  time:'',
+				},
+				tableData: [],
 			}
 		},
 		methods: {
 			search(){
-				this.tableVisible=true;
+				var that=this;
+				this.$http.get("adminUser/getDetailsByUUID",{params:{UUID:this.UUID}}).then(function(response){
+					console.log(response);
+					that.UUID=response.data.data.uuid;
+					for(var i=0;i<response.data.data.placeList.length;i++){
+						var newobj={
+							date: response.data.data.placeList[i].time,
+							name: response.data.data.description,
+							address: response.data.data.placeList[i].place
+						}
+						that.tableData.push(newobj);
+					}
+					//that.ruleForm.num=response.data.data.sum.toString();
+					that.tableVisible=true;
+				},function(error){
+					that.$message.error("提交失败！"+error);
+				})
 			},
 			scan_dialog(){
 				this.dialogVisible=true;
@@ -106,9 +112,28 @@
 					return false;
 				}
 				var reader=new FileReader();
+				var table_transer=this;
 				reader.readAsDataURL(file.raw);
 				reader.onload=function(e){
-					alert(this.result);
+					var that=this;
+					console.log(that.result);
+					table_transer.$http.post("adminUser/getDetails",{"base64":that.result}).then(function(response){
+						console.log(response.data.data);
+						for(var i=0;i<response.data.data.placeList.length;i++){
+							var newobj={
+								date: response.data.data.placeList[i].time,
+								name: response.data.data.description,
+								address: response.data.data.placeList[i].place
+							}
+							table_transer.tableData.push(newobj);
+						}
+						table_transer.UUID=response.data.data.batchNumber;
+						table_transer.ruleForm.name=response.data.data.description;
+						table_transer.tableVisible=true;
+						table_transer.dialogVisible=false;
+					},function(error){
+						that.$message.error("提交失败！");
+					})
 				}
 			},
 		}

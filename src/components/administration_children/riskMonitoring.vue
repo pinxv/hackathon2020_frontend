@@ -34,7 +34,7 @@ export default {
   	schedule(map){
   		var driving = new AMap.Driving({
   		        map: map,
-  		        panel: "map_container"
+				autoFitView:false,
   		    }); 
   		driving.search([
   		        {keyword: '北京市地震局(公交站)',city:'北京'},

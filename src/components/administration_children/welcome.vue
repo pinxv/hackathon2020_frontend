@@ -51,6 +51,16 @@
 				Danger:0,
 			}
 		},
+		created:function(){
+			var that=this;
+			this.$http.get("adminUser/countInfo").then(function(response){
+				that.Uploaded=response.data.data.batchNum;
+				that.Safe=response.data.data.safeNum;
+				that.Danger=response.data.data.unsafeNum;
+			},function(error){
+				that.$message.error("提交失败！"+error);
+			})
+		}
 	}
 </script>
 

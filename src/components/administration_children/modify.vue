@@ -28,8 +28,8 @@
 		</div>
 		
 		<!--搜索-->
-		<div id="search_container" style="float: left; width: 60%; padding-left: 17%; padding-top: 3%;"  >
-			<el-input id='input' v-model="id" placeholder="请输入单号"></el-input>
+		<div id="search_container" style="float: left; width: 60%; padding-left: 17%; padding-top: 3%;" >
+			<el-input id='input' v-model="UUID" placeholder="请输入单号"></el-input>
 		</div>
 		<div id="search_container" style="float: left;padding-left: 1%; padding-top: 3%;">
 			<el-button id='search' @click="search">查询</el-button>
@@ -104,10 +104,9 @@
 			return {
 				dialogVisible:false,
 				search_result:false,
-				id:'',
+				UUID:'',
 				//表单信息
 				ruleForm: {
-				  UUID:'',
 				  name: '',
 				  num:'',
 				  start_place:'',
@@ -160,7 +159,16 @@
 		},
 		methods: {
 			search(){
-				this.search_result=true;
+				var that=this;
+				this.$http.get("adminUser/getDetailsByUUID",{params:{UUID:this.UUID}}).then(function(response){
+					that.UUID=response.data.data.uuid;
+					that.ruleForm.name=response.data.data.description;
+					that.ruleForm.num=response.data.data.num.toString();
+					that.ruleForm.end_place=response.data.data.placeList[response.data.data.placeList.length-1].place;
+					that.search_result=true;
+				},function(error){
+					that.$message.error("提交失败！"+error);
+				})
 			},
 			scan_dialog(){
 				this.dialogVisible=true;
@@ -181,15 +189,15 @@
 				var reader=new FileReader();
 				reader.readAsDataURL(file.raw);
 				reader.onload=function(e){
-					alert(this.result);
 					var that=this;
 					data_transer.$http.post("adminUser/getUUID",{"base64":that.result}).then(function(response){
 						console.log(response.data.data);
-						data_transer.ruleForm.UUID=response.data.data.batchname;
+						data_transer.UUID=response.data.data.batchNumber;
 						data_transer.ruleForm.name=response.data.data.description;
 						data_transer.ruleForm.num=response.data.data.sum.toString();
 						data_transer.ruleForm.end_place=response.data.data.destination;
 						data_transer.search_result=true;
+						data_transer.dialogVisible=false;
 					},function(error){
 						that.$message.error("提交失败！");
 					})
@@ -199,10 +207,11 @@
 			submitForm(formName) {
 			  this.$refs[formName].validate((valid) => {
 			    if (valid) {
+									console.log(this.ruleForm);
 									var that=this;
 									this.$http.post("adminUser/changeCargoBatchInfoConfirm",{"creator":window.sessionStorage.getItem('sessionId'),"description":that.ruleForm.name
-									,"sum":parseInt(that.ruleForm.num),"destination":that.ruleForm.end_place,"batchNumber":that.ruleForm.UUID,"place":that.ruleForm.start_place}).then(function(response){
-										that.alert("提交成功！");
+									,"sum":parseInt(that.ruleForm.num),"destination":that.ruleForm.end_place,"batchNumber":that.UUID,"place":that.ruleForm.start_place}).then(function(response){
+										that.$message.success("提交成功！");
 									},function(error){
 										that.$message.error("提交失败！");
 									})
