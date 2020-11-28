@@ -88,7 +88,8 @@
 	  left: 50%;
 	  top: 50%;
 	  transform: translate(-50%, -50%);
-	  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.3)
+	  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.3);
+	  z-index: 2;
 	}
 	
 	
