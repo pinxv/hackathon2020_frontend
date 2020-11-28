@@ -33,12 +33,12 @@ export default {
 	this.$http.get("adminUser/history",{params:{username:window.sessionStorage.getItem("sessionId")}}).then(function(response){
 		var geocoder = new AMap.Geocoder({
 		    city: '全国'
-		  })
-		  var destll;
-		  var placell;  
+		  }) 
+		  console.log(response.data.data);
 		for(var i=0;i<response.data.data.length;i++){
 			var count=i;
-			that.getloc(response.data.data[i],geocoder).then(function(response){
+			var input=response.data.data[i];
+			that.getloc(input,geocoder).then(function(response){
 				var polyline = new AMap.Polyline({
 				    path: response.path,  
 					map:map,
@@ -46,7 +46,7 @@ export default {
 				    strokeColor: 'green', // 线条颜色
 				    lineJoin: 'round' // 折线拐点连接处样式
 				});
-				if(!response.isSafe){
+				if(response.isSafe===false){
 					polyline.setOptions({strokeColor:"#ff8033"})
 				} 
 			})

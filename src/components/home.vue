@@ -47,6 +47,37 @@
 		  </span>
 		</el-dialog>
 	</div>
+	<div id='user_container'>
+		<el-dialog
+		  class="upload_dialog"
+		  title="冷链信息"
+		  :visible.sync="userVisible"
+		  width="40%">
+		  <el-table
+		        :data="tableData"
+		        style="width: 100%" v-if="tableVisible">
+		        <el-table-column
+		          prop="date"
+		          label="日期"
+		  		  sortable
+		          width="180">
+		        </el-table-column>
+		        <el-table-column
+		          prop="name"
+		          label="货物信息"
+		          width="180">
+		        </el-table-column>
+		        <el-table-column
+		          prop="address"
+		          label="地址">
+		        </el-table-column>
+		      </el-table>
+		  <span slot="footer" class="dialog-footer">
+		    <el-button @click="userVisible = false">取 消</el-button>
+		    <el-button type="primary" @click="userVisible = false">确 定</el-button>
+		  </span>
+		</el-dialog>
+	</div>
 	<div class="search_place">
 	  <el-input
 	    placeholder="请输入溯源码查询"
@@ -75,6 +106,16 @@
 export default {
   data() {
     return {
+		userVisible:false,
+		tableVisible:false,
+		UUID:'',
+		ruleForm: {
+		  name: '',
+		  //num:'',
+		  place:'',
+		  time:'',
+		},
+		tableData: [],
 		drawer:false,//左侧新闻
 	  dialogVisible:false,
 	  map:{},
@@ -273,9 +314,30 @@ export default {
 				return false;
 			}
 			var reader=new FileReader();
+			var dialog_transer=this;
 			reader.readAsDataURL(file.raw);
 			reader.onload=function(e){
-				alert(this.result);
+				//信息加载
+				var that=this;
+				console.log(that.result);
+				dialog_transer.$http.post("adminUser/getDetails",{"base64":that.result}).then(function(response){
+					console.log(response.data.data);
+					for(var i=0;i<response.data.data.placeList.length;i++){
+						var newobj={
+							date: response.data.data.placeList[i].time,
+							name: response.data.data.description,
+							address: response.data.data.placeList[i].place
+						}
+						dialog_transer.tableData.push(newobj);
+					}
+					dialog_transer.UUID=response.data.data.uuid;
+					dialog_transer.ruleForm.name=response.data.data.description;
+					dialog_transer.tableVisible=true;
+					dialog_transer.dialogVisible=false;
+					dialog_transer.userVisible=true;
+				},function(error){
+					that.$message.error("提交失败！");
+				})
 			}
 		}
   },
