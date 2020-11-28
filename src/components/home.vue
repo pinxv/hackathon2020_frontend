@@ -1,9 +1,6 @@
 <template>
   <div class="home">
 	  <div class="left_news_container">
-		  <el-button @click="loadNews(2)" type="primary" style="margin-left: 16px;">
-		    相关新闻
-		  </el-button>
 		  
 		  <el-drawer
 		    :visible.sync="drawer"
@@ -151,14 +148,23 @@ export default {
 		map.clearMap();//刷新地图覆盖物
 		console.log("正在绘制标记");
 		console.log(this.risk_level_areas);
+		var infoWindow = new AMap.InfoWindow({ //创建信息窗体
+		       isCustom: true,  //使用自定义窗体
+		       content:'<div>信息窗体</div>', //信息窗体的内容可以是任意html片段
+		       offset: new AMap.Pixel(16, -45)
+		   });
+		var onMarkerClick  =  function(e) {
+		        infoWindow.open(map, e.target.getPosition());//打开信息窗体
+		        //e.target就是被点击的Marker
+		    } 
 		for(i = 0; i < this.risk_level_areas.length; i++){
 			// 创建一个 Marker 实例：
-			var text = this.risk_level_areas[i].riskLevel === 100? "中风险":"高风险";
 			var marker = new AMap.Marker({
 			    position: new AMap.LngLat(this.risk_level_areas[i].longitude,this.risk_level_areas[i].latitude),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
-			    title: '高风险'
+				cursor: "pointer"
 			});
 			
+			// console.log("extData:"+marker.extData);
 			// 将创建的点标记添加到已有的地图实例：
 			map.add(marker);
 			this.drawBounds(map,this.risk_level_areas[i].adcode,null,[]);
@@ -166,9 +172,9 @@ export default {
 		console.log("绘制标记完成");
 	},
 	//根据id加载风险地区新闻
-	loadNews(id) {
+	loadNews(marker) {
 		this.drawer = true;
-		this.drawRiskAreaNews(id);
+		this.drawRiskAreaNews(marker.extData);
 	},
 	//根据id改善新闻请求并渲染新闻
 	drawRiskAreaNews(id) {
