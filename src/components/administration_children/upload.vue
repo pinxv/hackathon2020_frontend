@@ -64,7 +64,7 @@
 	</div>
 </template>
 
-<script>
+<script scoped="scoped">
 	export default {
 		data() {
 		      return {

@@ -1,6 +1,67 @@
 <template>
 	<div>
-		欢迎
+	<div id='carousel_container'>
+		<el-carousel>
+		      <el-carousel-item v-for="item in 4" :key="item">
+		        <h3 class="small"></h3>
+		      </el-carousel-item>
+		    </el-carousel>
+	</div>
+	<div id='tab_container'>
+		<el-tabs type="border-card" >
+		  <el-tab-pane label="平台信息">
+			  <el-table
+			        :data="tableData"
+			        style="width: 100%">
+			        <el-table-column
+			          prop="date"
+			          label="日期"
+			          width="180">
+			        </el-table-column>
+			        <el-table-column
+			          prop="name"
+			          label="事件"
+			          width="180">
+			        </el-table-column>
+			      </el-table>
+		  </el-tab-pane>
+		  <!--<el-tab-pane label="配置管理">配置管理</el-tab-pane>
+		  <el-tab-pane label="角色管理">角色管理</el-tab-pane>
+		  <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>-->
+		</el-tabs>
+	</div>
+	<div id='inform_container'>
+		<div id='inform1' class="infor">
+			<el-card class="box-card" style="height: 100%;">
+			  <div slot="header" class="clearfix">
+			    <span>卡片名称1</span>
+			  </div>
+			  <div>
+				<span>内容</span>
+			  </div>
+			</el-card>
+		</div>
+		<div id='inform2' class="infor">
+			<el-card class="box-card" style="height: 100%;">
+			  <div slot="header" class="clearfix">
+			    <span>卡片名称2</span>
+			  </div>
+			  <div>
+				<span>内容</span>
+			  </div>
+			</el-card>
+		</div>
+		<div id='inform3' class="infor">
+			<el-card class="box-card" style="height: 100%;">
+			  <div slot="header" class="clearfix">
+			    <span>卡片名称3</span>
+			  </div>
+			  <div>
+				<span>内容</span>
+			  </div>
+			</el-card>
+		</div>
+	</div>
 	</div>
 </template>
 
@@ -10,5 +71,55 @@
 	}
 </script>
 
-<style>
+<style scoped="scoped">
+	.el-carousel__item h3 {
+	    color: #475669;
+	    font-size: 14px;
+	    opacity: 0.75;
+	    line-height: 150px;
+	    margin: 0;
+	  }
+	
+	  .el-carousel__item:nth-child(2n) {
+	     background-color: #99a9bf;
+	  }
+	  
+	  .el-carousel__item:nth-child(2n+1) {
+	     background-color: #d3dce6;
+	  }
+	  #carousel_container{
+		  width: 40%; 
+		  height: 60%; 
+		  padding-left: 10%; 
+		  padding-top: 5%; 
+		  float: left;
+	  }
+	  #tab_container{
+		  width: 40%;
+		  height: 60%; 
+		  padding-left: 5%; 
+		  padding-top: 5%; 
+		  float: left;
+	  }
+	  .infor{
+		  width: 17%;
+		  height: 40%;
+	  }
+	  #inform1{
+		padding-left: 15%;
+		padding-top: 30%;
+	  }
+	  #inform2{
+		padding-left: 10%;
+	  	padding-top: 30%;
+	  }
+	  #inform3{
+	  	padding-left: 25%;
+	  	padding-top: 30%;
+	  }
+	  #inform_container{
+		  float: left;
+		  padding-left: 1%;
+		  width: 80%;
+	  }
 </style>

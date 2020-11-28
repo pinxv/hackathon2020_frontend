@@ -8,17 +8,6 @@
 	  	id="search_place">
 	   </el-input>
 	</div>
-	<el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
-	  点我打开
-	</el-button>
-	
-	<el-drawer
-	  title="我是标题"
-	  :visible.sync="drawer"
-	  :direction="direction"
-	  :before-close="handleClose">
-	  <span>我来啦!</span>
-	</el-drawer>
 	<div class="list_of_risk_area">
 		<el-table
 		      :data="list_of_risk_area_data"
@@ -55,6 +44,7 @@
 export default {
   data() {
     return {
+	  drawer:false,
       center: [116.473778, 39.990661],
       zoom: 4,
       pitch: 45,
@@ -121,7 +111,7 @@ export default {
 			that.$message.error("风险地区信息加载失败！");
 			console.log(error);
 		})
-	}
+	},
   },
 };
 </script>
