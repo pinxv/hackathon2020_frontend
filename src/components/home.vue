@@ -28,31 +28,10 @@
 		      </el-table-column>
 		    </el-table>
 	</div>
-	<div style="width: 100%; height: 100%;" class="map_container">
-      <amap
-        cache-key="map"
-        ref="map"
-        view-mode="2D"
-		map-style="amap://styles/whitesmoke"
-        async
-        :zoom.sync="zoom"
-        :center.sync="center"
-        :pitch.sync="pitch"
-        :rotation.sync="rotation"
-        :show-indoor-map="false"
-        is-hotspot
-        @hotspotclick="onHotspotClick"
-      >
-	  
-        <amap-marker
-		  ref="marker",
-		  v-for="myMarker in myMarkers",
-		  :position="myMarker.position",
-		  :fillColor="myMarker.color",
-          :label="myMarker.label"
-        />
+	<div style="width: 100%; height: 100%;" class="map_container" id="map_container">
+
 	
-      </amap>
+
     </div>
 	<div class="login_button_container">
 		<el-button type="primary" @click="login">管理员登录</el-button>
@@ -60,7 +39,7 @@
   </div>
 </template>
 
-<script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=3a722c205c327398fd21c23f499b7878"></script>
+
 
 <script>
 	
@@ -97,20 +76,15 @@ export default {
   },
   mounted:function(){
 
-		var position = new AMap.LngLat(116, 39);//标准写法
-	  this.$nextTick(() => {
-        
-	
-      });
+	 var map = new AMap.Map('map_container', {
+	        zoom:11,//级别
+	        center: [116.397428, 39.90923],//中心点坐标
+	        viewMode:'3D'//使用3D视图
+	    });
   	
 	
   },
   methods: {
-    onHotspotClick(e) {
-      if (e && e.lnglat) {
-        this.center = [e.lnglat.lng, e.lnglat.lat];
-      }
-    },
 	login() {
 		this.$router.push("/login");
 	}
