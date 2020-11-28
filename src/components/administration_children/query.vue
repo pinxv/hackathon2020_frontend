@@ -26,12 +26,7 @@
 			  </span>
 			</el-dialog>
 		</div>
-		<!--导航栏-->
-		<el-breadcrumb separator-class="el-icon-arrow-right">
-		  <el-breadcrumb-item :to="{ path: '/welcome' }">主界面</el-breadcrumb-item>
-		  <el-breadcrumb-item>货物管理</el-breadcrumb-item>
-		  <el-breadcrumb-item>货物数据查询</el-breadcrumb-item>
-		</el-breadcrumb>
+		
 		<!--搜索-->
 		<div id="search_container" style="float: left; width: 60%; padding-left: 17%; padding-top: 3%;"  >
 			<el-input id='input' v-model="id" placeholder="请输入单号"></el-input>

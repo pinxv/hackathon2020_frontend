@@ -126,7 +126,9 @@
 	 }
 	  /* 侧边栏 */
 	.el-aside {
+		margin-top: 10px;
 	  background-color: rgb(51,51,61);
+	  border-radius: 10px;
 	 }
 	 .info {
 		 background-color: rgb(51,51,61);
@@ -147,8 +149,7 @@
 	}
 	/* 主要内容 */
 	.el-main {
-		margin-top: 5px;
-		margin-left: 10px;
+		margin: 10px;
 		padding: 0;
 		border-color: rgb(51,51,61);
 		border-style: solid;

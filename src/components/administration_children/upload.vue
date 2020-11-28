@@ -1,10 +1,6 @@
 <template>
 	<div>
-		<el-breadcrumb separator-class="el-icon-arrow-right">
-		  <el-breadcrumb-item :to="{ path: '/welcome' }">主界面</el-breadcrumb-item>
-		  <el-breadcrumb-item>货物管理</el-breadcrumb-item>
-		  <el-breadcrumb-item>货物数据上传</el-breadcrumb-item>
-		</el-breadcrumb>
+		
 	<div style="padding-top: 5%;">
 		<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
 		  <el-form-item label="货物名称" prop="name" style="width: 40%;">

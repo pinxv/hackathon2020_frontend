@@ -1,9 +1,5 @@
 <template>
 	<div class="monitoring">
-		<el-breadcrumb separator-class="el-icon-arrow-right">
-		  <el-breadcrumb-item :to="{ path: '/welcome' }">主界面</el-breadcrumb-item>
-		  <el-breadcrumb-item>风险监测</el-breadcrumb-item>
-		</el-breadcrumb>
 	
 	
 		<div style="width: 100%; height: 100%;" class="map_container" id="map_container">
