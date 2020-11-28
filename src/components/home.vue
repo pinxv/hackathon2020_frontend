@@ -30,8 +30,6 @@
 	</div>
 	<div style="width: 100%; height: 100%;" class="map_container" id="map_container">
 
-	
-
     </div>
 	<div class="login_button_container">
 		<el-button type="primary" @click="login">管理员登录</el-button>
@@ -77,11 +75,11 @@ export default {
   mounted:function(){
 
 	 var map = new AMap.Map('map_container', {
-	        zoom:11,//级别
+	        zoom:4,//级别
 	        center: [116.397428, 39.90923],//中心点坐标
-	        viewMode:'3D'//使用3D视图
+	        viewMode:'2D'//使用3D视图
 	    });
-  	
+  	console.log(map);
 	
   },
   methods: {

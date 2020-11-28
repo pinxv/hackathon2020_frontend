@@ -123,8 +123,8 @@
 		letter-spacing: 0.2em;
 		cursor: pointer;
 	}
+	/* 主要内容 */
 	.el-main {
-	    background-color: #E9EEF3;
 	    
 	}
 	#console{
