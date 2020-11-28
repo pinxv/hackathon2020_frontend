@@ -1,5 +1,29 @@
 <template>
   <div class="home">
+	<div id='dialog_container'>
+		<el-dialog
+		  title="上传照片"
+		  :visible.sync="dialogVisible"
+		  width="30%">
+		  <el-upload
+		    class="upload-demo"
+			ref='upload'
+			:file-list="fileList"
+		    drag
+			:auto-upload="false"
+		    action=""
+		    multiple>
+		    <i class="el-icon-upload"></i>
+		    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+		    <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+		  </el-upload>
+		  <span>请上传照片</span>
+		  <span slot="footer" class="dialog-footer">
+		    <el-button @click="dialogVisible = false">取 消</el-button>
+		    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+		  </span>
+		</el-dialog>
+	</div>
 	<div class="search_place">
 	  <el-input
 	    placeholder="请输入溯源码查询"
@@ -8,6 +32,9 @@
 	  	id="search_place">
 	   </el-input>
 	</div>
+	<div id="scan_container">
+		<el-button id="scan" icon="logo.png" circle style="width: 100px; height: 100px;" @click="scan_dialog">扫码</el-button>
+	</div>
 	<div class="list_of_risk_area">
 		<el-table
 		      :data="list_of_risk_area_data"
@@ -15,6 +42,7 @@
 		      <el-table-column
 		        prop="date"
 		        label="时间"
+				sortable
 		        width="100">
 		      </el-table-column>
 		      <el-table-column
@@ -44,7 +72,7 @@
 export default {
   data() {
     return {
-
+	  dialogVisible:false,
 	  map:{},
       center: [116.473778, 39.990661],
       zoom: 4,
@@ -174,7 +202,10 @@ export default {
 	            }
 	            map.add(polygons)
 	        });
-	    }
+	    },
+		scan_dialog(){
+			this.dialogVisible=true;
+		},
   },
 };
 </script>
@@ -215,5 +246,13 @@ export default {
 		right: 5px;
 		bottom: 5px;
 		z-index: 2;
+	}
+	#scan_container{
+		position: absolute;
+		right: 1%;
+		top: 5%;
+		z-index: 2;
+		width: 10%;
+		height: 10%;
 	}
 </style>

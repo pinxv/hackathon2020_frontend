@@ -106,16 +106,19 @@
 		  height: 40%;
 	  }
 	  #inform1{
+		float: left;
 		padding-left: 15%;
-		padding-top: 30%;
+		padding-top: 10%;
 	  }
 	  #inform2{
-		padding-left: 10%;
-	  	padding-top: 30%;
+		float: left;
+		padding-left: 15%;
+	  	padding-top: 10%;
 	  }
 	  #inform3{
-	  	padding-left: 25%;
-	  	padding-top: 30%;
+		float: left;
+	  	padding-left: 15%;
+	  	padding-top: 10%;
 	  }
 	  #inform_container{
 		  float: left;
