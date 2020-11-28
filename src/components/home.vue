@@ -63,6 +63,7 @@ export default {
 	  search_place:"",
 	  //风险等级地点信息
 	  risk_level_areas:[{longitude:111,latitude:35,riskLevel:100}],
+	  //相关风险新闻
 	  list_of_risk_area_data:[{
             date: '2016-05-02',
             risk_level: '高',
