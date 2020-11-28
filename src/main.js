@@ -7,6 +7,7 @@ import AmapVue from '@amap/amap-vue'
 import './assets/css/global.css'
 import axios from 'axios'
 
+
 Vue.config.productionTip = false
 
 // 配置地图
