@@ -38,16 +38,19 @@
 		<!--搜索成功后弹出填写信息表单-->
 		<div id="form_container">
 			 <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" v-if="search_result">
-			   <el-form-item label="货物名称" prop="name">
+			   <el-form-item label="货物名称" prop="name" style="width: 40%;">
 			     <el-input v-model="ruleForm.name"></el-input>
 			   </el-form-item>
-			   <el-form-item label="发货地址" prop="name">
+			   <el-form-item label="货物数量" prop="num" style="width: 20%;">
+			     <el-input v-model="ruleForm.num"></el-input>
+			   </el-form-item>
+			   <el-form-item label="发货地址" prop="start_place"  style="width: 40%;">
 			     <el-input v-model="ruleForm.start_place"></el-input>
 			   </el-form-item>
-			   <el-form-item label="收货地址" prop="name">
+			   <el-form-item label="收货地址" prop="end_place"  style="width: 40%;">
 			     <el-input v-model="ruleForm.end_place"></el-input>
 			   </el-form-item>
-			   <el-form-item label="活动区域" prop="region">
+			   <!--<el-form-item label="活动区域" prop="region">
 			     <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
 			       <el-option label="区域一" value="shanghai"></el-option>
 			       <el-option label="区域二" value="beijing"></el-option>
@@ -85,9 +88,9 @@
 			   </el-form-item>
 			   <el-form-item label="活动形式" prop="desc">
 			     <el-input type="textarea" v-model="ruleForm.desc"></el-input>
-			   </el-form-item>
+			   </el-form-item>-->
 			   <el-form-item>
-			     <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+			     <el-button type="primary" @click="submitForm('ruleForm')">立即修改</el-button>
 			     <el-button @click="resetForm('ruleForm')">重置</el-button>
 			   </el-form-item>
 			 </el-form>
@@ -105,22 +108,35 @@
 				//表单信息
 				ruleForm: {
 				  name: '',
+				  num:'',
 				  start_place:'',
 				  end_place:'',
-				  region: '',
+				  /*region: '',
 				  date1: '',
 				  date2: '',
 				  delivery: false,
 				  type: [],
 				  resource: '',
-				  desc: ''
+				  desc: ''*/
 				},
 				rules: {
 				  name: [
-				    { required: true, message: '请输入活动名称', trigger: 'blur' },
-				    { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+				    { required: true, message: '请输入货物名称', trigger: 'blur' },
+				    { min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' }
 				  ],
-				  region: [
+				  num: [
+				    { required: true, message: '请输入货物数量', trigger: 'blur' },
+				    { min: 1, max: 7, message: '长度在 1 到 7 个字符', trigger: 'blur' }
+				  ],
+				  start_place: [
+				    { required: true, message: '请输入起始地点', trigger: 'blur' },
+				    { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
+				  ],
+				  end_place: [
+				    { required: true, message: '请输入目的地', trigger: 'blur' },
+				    { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
+				  ],
+				  /*region: [
 				    { required: true, message: '请选择活动区域', trigger: 'change' }
 				  ],
 				  date1: [
@@ -137,7 +153,7 @@
 				  ],
 				  desc: [
 				    { required: true, message: '请填写活动形式', trigger: 'blur' }
-				  ]
+				  ]*/
 				}
 			}
 		},
@@ -165,7 +181,27 @@
 				reader.onload=function(e){
 					alert(this.result);
 				}
+				
 			},
+			submitForm(formName) {
+			  this.$refs[formName].validate((valid) => {
+			    if (valid) {
+									var that=this;
+									this.$http.post("adminUser/importCargoBatch",{"creator":window.sessionStorage.getItem('sessionId'),"description":that.ruleForm.name
+									,"sum":that.ruleForm.num,"destination":that.ruleForm.end_place,"place":that.ruleForm.start_place}).then(function(response){
+										that.$message.success("提交成功！");
+									},function(error){
+										that.$message.error("提交失败！");
+									})
+			    } else {
+			      alert('提交错误');
+			      return false;
+			    }
+			  });
+			},
+			resetForm(formName) {
+			  this.$refs[formName].resetFields();
+			}
 		}
 	}
 </script>

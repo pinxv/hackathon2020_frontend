@@ -20,8 +20,9 @@ export default {
 	var map = new AMap.Map('map_container', {
 	    center:[105,37],
 	    mapStyle: 'amap://styles/blue',
+
 	    viewMode:'2D',
-	    labelzIndex:130,
+	    labelzIndex:100,
 	    zoom:4.5,
 	    layers:[
 	        new AMap.TileLayer({
