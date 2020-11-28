@@ -1,5 +1,8 @@
 <template>
 	<div class="login_container">
+		<div class="img">
+			<img src="../assets/img/冯虚御风标题白色.png" alt="">
+		</div>
 	  <!-- 登录模块 -->
 	  <div class="login_box">
 	    <!-- 登录表单 -->
@@ -65,21 +68,27 @@
 	/* 登录容器样式 */
 	.login_container {
 	  background-color: rgba(255,255,255,.5);
-	  height: 100%;
+	  height: 30%;
 	  background-image: url(../assets/img/路.jpg);
 	  background-size: cover;
+	}
+	.img {
+		position: absolute;
+		left: 50%;
+		top: 10%;
+		transform: translateX(-20%);
 	}
 	
 	.login_box {
 	  width: 525px;
 	  height: 350px;
-	  background-color: rgba(255,255,255,.7);
+	  background-color: white;
 	  border-radius: 10px;
 	  position: absolute;
 	  left: 50%;
 	  top: 50%;
 	  transform: translate(-50%, -50%);
-	  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1)
+	  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.3)
 	}
 	
 	
