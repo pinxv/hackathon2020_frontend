@@ -1,5 +1,22 @@
 <template>
   <div class="home">
+	  <div class="left_news_container">
+		  <el-button @click="loadNews" type="primary" style="margin-left: 16px;">
+		    相关新闻
+		  </el-button>
+		  
+		  <el-drawer
+		    :visible.sync="drawer"
+		    direction="ltr"
+		    :before-close="handleClose"
+			:modal="false">
+		    <el-card class="news_list">
+		      <div v-for="o in 4" :key="o" class="text item">
+		        {{'列表内容 ' + o }}
+		      </div>
+		    </el-card>
+		  </el-drawer>
+	  </div>
 	<div id='dialog_container'>
 		<el-dialog
 		  title="上传照片"
@@ -35,27 +52,7 @@
 	<div id="scan_container">
 		<el-button id="scan" icon="logo.png" circle style="width: 100px; height: 100px;" @click="scan_dialog">扫码</el-button>
 	</div>
-	<div class="list_of_risk_area">
-		<el-table
-		      :data="list_of_risk_area_data"
-		      style="width: 100%" stripe>
-		      <el-table-column
-		        prop="date"
-		        label="时间"
-				sortable
-		        width="100">
-		      </el-table-column>
-		      <el-table-column
-		        prop="risk_level"
-		        label="风险等级"
-		        width="50">
-		      </el-table-column>
-		      <el-table-column
-		        prop="area"
-		        label="地点">
-		      </el-table-column>
-		    </el-table>
-	</div>
+	
 	<div style="width: 100%; height: 100%;" class="map_container" id="map_container">
 
     </div>
@@ -72,6 +69,7 @@
 export default {
   data() {
     return {
+		drawer:false,//左侧新闻
 	  dialogVisible:false,
 	  map:{},
       center: [116.473778, 39.990661],
@@ -82,23 +80,7 @@ export default {
 	  //风险等级地点信息
 	  risk_level_areas:[{longitude:111,latitude:35,riskLevel:100}],
 	  //相关风险新闻
-	  list_of_risk_area_data:[{
-            date: '2016-05-02',
-            risk_level: '高',
-            area: '上海市普陀区金沙江路'
-          }, {
-            date: '2016-05-02',
-            risk_level: '高',
-            area: '上海市普陀区金沙江路'
-          }, {
-            date: '2016-05-02',
-            risk_level: '高',
-            area: '上海市普陀区金沙江路'
-          }, {
-            date: '2016-05-02',
-            risk_level: '高',
-            area: '上海市普陀区金沙江路'
-          }]
+	  news_array:[]
     };
 	
   },
@@ -128,9 +110,18 @@ export default {
 	console.log("created");
   },
   methods: {
+	handleClose(done) {
+	        this.$confirm('确认关闭？')
+	          .then(_ => {
+	            done();
+	          })
+	          .catch(_ => {});
+	      },
+	//登录
 	login() {
 		this.$router.push("/login");
 	},
+	//获取风险地区信息并绘制标记
 	getRiskLevelInfo(map) {
 		var that = this;
 		// 发送请求，请求风险地区经纬度
@@ -149,7 +140,8 @@ export default {
 		},function(error){
 			that.$message.error("风险地区信息加载失败！");
 			console.log(error);
-		})
+		});
+		
 	},
 	// 为地图绘制风险地区标记
 	drawRiskLevelMarker(map) {
@@ -170,6 +162,31 @@ export default {
 			this.drawBounds(map,this.risk_level_areas[i].adcode,null,[]);
 		}
 		console.log("绘制标记完成");
+	},
+	//加载风险地区新闻
+	loadNews() {
+		this.drawer = true;
+	},
+	//根据id改善新闻请求并渲染新闻
+	drawRiskAreaNews(id) {
+		var i = 0;
+		// 发送新闻请求
+		console.log("发送新闻请求");
+		var that = this;
+		console.log(this.risk_level_areas);
+		this.$http.get('news?highRiskAreaId='+id).then(function(response){
+			
+			if(response.data.code === 200){
+				that.$message.success("风险地区新闻加载成功！");
+				that.news_array = response.data.data;
+				console.log(that.news_array);
+			}
+			else {
+				that.$message.error("风险地区新闻加载失败！");
+			}
+		},function(error){
+			that.$message.error("风险地区新闻加载失败！");
+		})
 	},
 	//行政区划绘制
 	drawBounds(map,adcode,district,polygons) {
@@ -206,9 +223,9 @@ export default {
 	    },
 		scan_dialog(){
 			this.dialogVisible=true;
-		},
-  },
-};
+		}
+  }
+}
 </script>
 
 
@@ -216,6 +233,13 @@ export default {
 	.home {
 		margin: 0;
 		padding: 0;
+	}
+	/* 左侧新闻栏 */
+	.left_news_container {
+		position: absolute;
+		left: 0;
+		top: 50%;
+		z-index: 2;
 	}
 	/* 搜索框 */
 	.search_place {
