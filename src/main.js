@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 AmapVue.config.key = "3a722c205c327398fd21c23f499b7878";
 Vue.use(AmapVue)
 //配置请求的根路径
-axios.defaults.baseURL = 'http://localhost:8080/api/';
+axios.defaults.baseURL = 'http://118.178.255.173:8080/api/';
 //配置请求的默认头部
 Vue.prototype.$http = axios;
 
