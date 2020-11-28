@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="width: 100%; height: 100%; background-color: rgba(41,41,61,.9);">
 		<!--扫码相关弹窗-->
 		<div id='dialog_container'>
 			<el-dialog
@@ -33,7 +33,7 @@
 		</div>
 		<div id="search_container" style="float: left;padding-left: 1%; padding-top: 3%;">
 			<el-button id='search' @click="search">查询</el-button>
-			<el-button id='scan' @click="scan_dialog">扫码查询</el-button>
+			<el-button id='scan' @click="scan_dialog">扫码更新</el-button>
 		</div>
 		<!--搜索成功后弹出填写信息表单-->
 		<div id="form_container">

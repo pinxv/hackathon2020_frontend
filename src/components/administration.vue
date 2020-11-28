@@ -151,9 +151,9 @@
 	.el-main {
 		margin: 10px;
 		padding: 0;
-		border-color: rgb(51,51,61);
+		border-color: rgba(0,90,115);
 		border-style: solid;
-		border-width: 5px;
+		border-width: 3px;
 		border-radius: 5px;
 	}
 	#console{

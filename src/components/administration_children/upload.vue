@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="width: 100%; height: 100%; background-color: rgba(41,41,61,.7);">
 		<div id='dialog_container'>
 			<el-dialog
 			  class="callback_dialog"
@@ -13,18 +13,18 @@
 			  </span>
 			</el-dialog>
 		</div>
-	<div style="padding-top: 5%;">
+	<div class="upload_form">
 		<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-		  <el-form-item label="货物名称" prop="name" style="width: 40%;">
+		  <el-form-item label="货物名称" prop="name" style="width: 800px;margin: 50px;">
 		    <el-input v-model="ruleForm.name"></el-input>
 		  </el-form-item>
-		  <el-form-item label="货物数量" prop="num" style="width: 20%;">
+		  <el-form-item label="货物数量" prop="num" style="width: 800px;margin: 50px;">
 		    <el-input v-model="ruleForm.num"></el-input>
 		  </el-form-item>
-		  <el-form-item label="发货地址" prop="start_place"  style="width: 40%;">
+		  <el-form-item label="发货地址" prop="start_place"  style="width: 800px;margin: 50px;">
 		    <el-input v-model="ruleForm.start_place"></el-input>
 		  </el-form-item>
-		  <el-form-item label="收货地址" prop="end_place"  style="width: 40%;">
+		  <el-form-item label="收货地址" prop="end_place"  style="width: 800px;margin: 50px;">
 		    <el-input v-model="ruleForm.end_place"></el-input>
 		  </el-form-item>
 		  <!--<el-form-item label="活动区域" prop="region">
@@ -66,10 +66,13 @@
 		  <el-form-item label="活动形式" prop="desc">
 		    <el-input type="textarea" v-model="ruleForm.desc"></el-input>
 		  </el-form-item>-->
-		  <el-form-item>
-		    <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
-		    <el-button @click="resetForm('ruleForm')">重置</el-button>
-		  </el-form-item>
+		  <div class="buttons">
+			  <el-form-item>
+				<el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+				<el-button @click="resetForm('ruleForm')">重置</el-button>
+			</el-form-item>
+		  </div>
+		  
 		</el-form>
 	</div>
 	</div>
@@ -176,4 +179,19 @@
 </script>
 
 <style scoped="scoped">
+	.upload_form {
+		border-style: double;
+		border-width: 5px;
+		border-color: rgb(0,90,115);
+		border-radius: 5px;
+		padding: 10px;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-40%,-45%);
+	}
+	.buttons {
+		margin-right: 6%;
+		float: right;
+	}
 </style>
