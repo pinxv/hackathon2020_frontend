@@ -235,11 +235,6 @@ export default {
 	    },
 		scan_dialog(){
 			this.dialogVisible=true;
-<<<<<<< HEAD
-		}
-  }
-}
-=======
 		},
 		onUpload(file){
 			const isIMAGE=(file.raw.type ==='image/jpeg' || file.raw.type ==='image/png');
@@ -261,7 +256,7 @@ export default {
   },
   
 };
->>>>>>> 98bbbb066befa2b4bee7916507df87fa5e95eea4
+
 </script>
 
 
