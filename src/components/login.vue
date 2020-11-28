@@ -5,7 +5,7 @@
 	    <!-- 登录表单 -->
 	    <el-form label-width="0px" class="login_form" :model="login_form" :rules="login_form_rules" ref="loginFormRef">
 	      <!-- 用户名 -->
-	      <el-form-item prop="username">
+	      <el-form-item prop="username" style="margin-bottom: 30px;">
 	        <el-input prefix-icon="el-icon-user-solid" v-model="login_form.username"></el-input>
 	      </el-form-item>
 	      <!-- 密码 -->
@@ -64,15 +64,17 @@
 <style scoped="scoped">
 	/* 登录容器样式 */
 	.login_container {
-	  background-color: white;
+	  background-color: rgba(255,255,255,.5);
 	  height: 100%;
+	  background-image: url(../assets/img/路.jpg);
+	  background-size: cover;
 	}
 	
 	.login_box {
 	  width: 525px;
 	  height: 350px;
-	  background-color: white;
-	  border-radius: 3px;
+	  background-color: rgba(255,255,255,.7);
+	  border-radius: 10px;
 	  position: absolute;
 	  left: 50%;
 	  top: 50%;
