@@ -7,16 +7,19 @@
 		</el-breadcrumb>
 	<div style="padding-top: 5%;">
 		<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-		  <el-form-item label="货物名称" prop="name">
+		  <el-form-item label="货物名称" prop="name" style="width: 40%;">
 		    <el-input v-model="ruleForm.name"></el-input>
 		  </el-form-item>
-		  <el-form-item label="发货地址" prop="name">
+		  <el-form-item label="货物数量" prop="num" style="width: 20%;">
+		    <el-input v-model="ruleForm.num"></el-input>
+		  </el-form-item>
+		  <el-form-item label="发货地址" prop="start_place"  style="width: 40%;">
 		    <el-input v-model="ruleForm.start_place"></el-input>
 		  </el-form-item>
-		  <el-form-item label="收货地址" prop="name">
+		  <el-form-item label="收货地址" prop="end_place"  style="width: 40%;">
 		    <el-input v-model="ruleForm.end_place"></el-input>
 		  </el-form-item>
-		  <el-form-item label="活动区域" prop="region">
+		  <!--<el-form-item label="活动区域" prop="region">
 		    <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
 		      <el-option label="区域一" value="shanghai"></el-option>
 		      <el-option label="区域二" value="beijing"></el-option>
@@ -54,7 +57,7 @@
 		  </el-form-item>
 		  <el-form-item label="活动形式" prop="desc">
 		    <el-input type="textarea" v-model="ruleForm.desc"></el-input>
-		  </el-form-item>
+		  </el-form-item>-->
 		  <el-form-item>
 		    <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
 		    <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -70,22 +73,35 @@
 		      return {
 		        ruleForm: {
 		          name: '',
+				  num:'',
 				  start_place:'',
 				  end_place:'',
-		          region: '',
-		          date1: '',
-		          date2: '',
-		          delivery: false,
-		          type: [],
-		          resource: '',
-		          desc: ''
+		          //region: '',
+		          //date1: '',
+		          //date2: '',
+		          //delivery: false,
+		          //type: [],
+		          //resource: '',
+		          //desc: ''
 		        },
 		        rules: {
 		          name: [
-		            { required: true, message: '请输入活动名称', trigger: 'blur' },
-		            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+		            { required: true, message: '请输入货物名称', trigger: 'blur' },
+		            { min: 1, max: 7, message: '长度在 1 到 7 个字符', trigger: 'blur' }
 		          ],
-		          region: [
+				  num: [
+				    { required: true, message: '请输入货物数量', trigger: 'blur' },
+				    { min: 1, max: 7, message: '长度在 1 到 7 个字符', trigger: 'blur' }
+				  ],
+				  start_place: [
+				    { required: true, message: '请输入起始地点', trigger: 'blur' },
+				    { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
+				  ],
+				  end_place: [
+				    { required: true, message: '请输入目的地', trigger: 'blur' },
+				    { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
+				  ],
+		          /**region: [
 		            { required: true, message: '请选择活动区域', trigger: 'change' }
 		          ],
 		          date1: [
@@ -94,7 +110,7 @@
 		          date2: [
 		            { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
 		          ],
-		          type: [
+		          /**type: [
 		            { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
 		          ],
 		          resource: [
@@ -102,7 +118,7 @@
 		          ],
 		          desc: [
 		            { required: true, message: '请填写活动形式', trigger: 'blur' }
-		          ]
+		          ]**/
 		        }
 		      };
 		    },
@@ -111,6 +127,13 @@
 			        this.$refs[formName].validate((valid) => {
 			          if (valid) {
 			            alert('submit!');
+						var that=this;
+						this.$http.post("admin/importCargoBatch",{"username":that.login_form.username,"password":that.login_form.password}).then(function(response){
+							window.sessionStorage.setItem('sessionId',response.data.data.username)
+							that.$router.push('/administration')
+						},function(error){
+							that.$message.error("登录失败！");
+						})
 			          } else {
 			            console.log('error submit!!');
 			            return false;
