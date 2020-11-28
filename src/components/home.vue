@@ -49,10 +49,8 @@ export default {
       pitch: 45,
       rotation: 0,
 	  search_place:"",
-	  // 风险等级圆点标记
-	  myMarkers:[{position:[116.473778, 29.990661],label:{content:"高",direction:"bottom"}},
-	  {position:[106.473778, 29.990661],label:{content:"中",direction:"bottom"}}],
-	  
+	  //风险等级地点信息
+	  risk_level_area:[],
 	  list_of_risk_area_data:[{
             date: '2016-05-02',
             risk_level: '高',
@@ -71,6 +69,7 @@ export default {
             area: '上海市普陀区金沙江路'
           }]
     };
+	
   },
   mounted:function(){
 
@@ -79,12 +78,31 @@ export default {
 	        center: [116.397428, 39.90923],//中心点坐标
 	        viewMode:'2D'//使用3D视图
 	    });
-  	console.log(map);
-	
+  },
+  //在页面加载后请求风险地区信息
+  created() {
+  	this.getRiskLevelInfo();
   },
   methods: {
 	login() {
 		this.$router.push("/login");
+	},
+	getRiskLevelInfo() {
+		var that = this;
+		// 发送请求，请求风险地区经纬度
+		this.$http.get('/risklevel/getall').then(function(response){
+			if(response.data.code === 200){
+				that.$message.success("风险地区信息加载成功！");
+				//加载用户信息
+				that.risk_level_area = response.data;
+			}
+			else {
+				that.$message.error("风险地区信息加载失败！");
+			}
+		},function(error){
+			that.$message.error("风险地区信息加载失败！");
+			console.log(error);
+		})
 	}
   },
 };
