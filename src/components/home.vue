@@ -72,31 +72,21 @@ export default {
 	
   },
   //在页面加载后请求风险地区信息
-  created() {
+  created:function() {
+	  console.log("created");
   	this.getRiskLevelInfo();
   },
   mounted:function(){
+	console.log("mounted");
 
 	 var map = new AMap.Map('map_container', {
 	        zoom:4,//级别
 	        center: [116.397428, 39.90923],//中心点坐标
 	        viewMode:'2D'//使用3D视图
 	    });
-	//循环构造风险地区标记
-	var i = 0;
-	for (i = 0; i < this.risk_level_areas.length; i++){
-		// 创建一个 Marker 实例：
-		var risk_level_area = this.risk_level_areas[i];
-		var marker = new AMap.Marker({
-		    position: new AMap.LngLat(risk_level_area.longitude, risk_level_area.latitude),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
-		    title: risk_level_area.risk_level ==='100'? "中风险":"高风险"
-		});
-		
-		// 将创建的点标记添加到已有的地图实例：
-		map.add(marker);
-	}
+
+
   },
-  
   methods: {
 	login() {
 		this.$router.push("/login");
@@ -158,5 +148,10 @@ export default {
 		right: 5px;
 		bottom: 5px;
 		z-index: 2;
+	}
+	html,body,#map_container{
+	    margin:0;
+	    height:100%;
+	    background-color:rgb(216, 238,250) !important
 	}
 </style>
