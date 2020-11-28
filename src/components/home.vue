@@ -17,16 +17,18 @@
 	  </div>
 	<div id='dialog_container'>
 		<el-dialog
+		  class="upload_dialog"
 		  title="上传照片"
 		  :visible.sync="dialogVisible"
 		  width="30%">
 		  <el-upload
-		    class="upload-demo"
+		    class="upload"
 			ref='upload'
-			:file-list="fileList"
-		    drag
+			:on-change="onUpload"
 			:auto-upload="false"
 		    action=""
+			:limit="1"
+			drag
 		    multiple>
 		    <i class="el-icon-upload"></i>
 		    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -233,9 +235,33 @@ export default {
 	    },
 		scan_dialog(){
 			this.dialogVisible=true;
+<<<<<<< HEAD
 		}
   }
 }
+=======
+		},
+		onUpload(file){
+			const isIMAGE=(file.raw.type ==='image/jpeg' || file.raw.type ==='image/png');
+			const isOversize=file.size/1024/1024<1;
+			if(!isIMAGE){
+				this.$message.error('图片格式错误');
+				return false;
+			}
+			if(!isOversize){
+				this.$message.error('图片过大');
+				return false;
+			}
+			var reader=new FileReader();
+			reader.readAsDataURL(file.raw);
+			reader.onload=function(e){
+				alert(this.result);
+			}
+		}
+  },
+  
+};
+>>>>>>> 98bbbb066befa2b4bee7916507df87fa5e95eea4
 </script>
 
 
@@ -290,4 +316,9 @@ export default {
 		width: 10%;
 		height: 10%;
 	}
+	.upload /deep/ .el-upload-dragger{
+		width: 100%;
+		
+	}				
+					
 </style>
