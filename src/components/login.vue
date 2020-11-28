@@ -1,6 +1,8 @@
 <template>
 	<div class="login_container">
-		<div class="img">
+		<div class="img_header">
+		</div>
+		<div class="img_title">
 			<img src="../assets/img/冯虚御风标题白色.png" alt="">
 		</div>
 	  <!-- 登录模块 -->
@@ -68,11 +70,14 @@
 	/* 登录容器样式 */
 	.login_container {
 	  background-color: rgba(255,255,255,.5);
-	  height: 30%;
-	  background-image: url(../assets/img/路.jpg);
-	  background-size: cover;
+	  height: 100%;
 	}
-	.img {
+	.img_header {
+		height: 30%;
+		background-image: url(../assets/img/路.jpg);
+		background-size: cover;
+	}
+	.img_title {
 		position: absolute;
 		left: 50%;
 		top: 10%;
