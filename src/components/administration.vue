@@ -43,29 +43,38 @@
 					  :router="true">
 					  <!-- 欢迎界面 -->
 					  <el-menu-item index="/welcome">
-					    <i class="el-icon-setting"></i>
+					    <i class="el-icon-s-platform"></i>
 					    <span slot="title">主界面</span>
 					  </el-menu-item>
 					  <!-- 货物管理侧边栏 -->
 				      <el-submenu index="1">
 				        <template slot="title">
-				          <i class="el-icon-location"></i>
+				          <i class="el-icon-s-goods"></i>
 				          <span>货物管理</span>
 				        </template>
 				        <el-menu-item-group>
-				          <el-menu-item index="/query">货物数据查询</el-menu-item>
-				          <el-menu-item index="/upload">货物数据上传</el-menu-item>
-						  <el-menu-item index="/modify">货物数据修改</el-menu-item>
+				          <el-menu-item index="/query">
+							  <i class="el-icon-search"></i>
+							  <span>货物数据查询</span>
+							  </el-menu-item>
+				          <el-menu-item index="/upload">
+							  <i class="el-icon-upload2"></i>
+							  <span>货物数据上传</span>
+						  </el-menu-item>
+						  <el-menu-item index="/modify">
+							  <i class="el-icon-refresh"></i>
+							  <span>货物数据更新</span>
+						  </el-menu-item>
 				        </el-menu-item-group>
 				        <!-- 风险监测侧边栏 -->
 				      </el-submenu>
 				      <el-menu-item index="/riskMonitoring">
-				        <i class="el-icon-menu"></i>
+				        <i class="el-icon-map-location"></i>
 				        <span slot="title">风险监测</span>
 				      </el-menu-item>
 					  <!-- 返回首页 -->
 				      <el-menu-item index="/home">
-				        <i class="el-icon-setting"></i>
+				        <i class="el-icon-back"></i>
 				        <span slot="title">退出登录</span>
 				      </el-menu-item>
 					  
