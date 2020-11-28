@@ -43,6 +43,7 @@
         is-hotspot
         @hotspotclick="onHotspotClick"
       >
+	  
         <amap-marker
 		  ref="marker",
 		  v-for="myMarker in myMarkers",
@@ -59,7 +60,10 @@
   </div>
 </template>
 
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=3a722c205c327398fd21c23f499b7878"></script>
+
 <script>
+	
 export default {
   data() {
     return {
@@ -90,6 +94,16 @@ export default {
             area: '上海市普陀区金沙江路'
           }]
     };
+  },
+  mounted:function(){
+
+		var position = new AMap.LngLat(116, 39);//标准写法
+	  this.$nextTick(() => {
+        
+	
+      });
+  	
+	
   },
   methods: {
     onHotspotClick(e) {
