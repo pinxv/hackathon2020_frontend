@@ -18,7 +18,7 @@
 				    mode="horizontal"
 				    @select="handleSelect"
 				    background-color=rgb(51,51,61)
-				    text-color="#fff"
+				    text-color=rgb(32,192,252)
 				    active-text-color="#ffd04b">
 				    <el-menu-item index="1">消息中心</el-menu-item>
 				    <el-menu-item index="2">账户信息</el-menu-item>
@@ -110,6 +110,7 @@
 <style scoped="scoped">
 	.administration {
 		height: 100%;
+		background-color: rgb(31,31,41);
 	}
 	.container {
 		height: 100%;
@@ -121,7 +122,7 @@
 	  display: flex;
 	  justify-content: space-between;
 	  align-items: center;
-	  
+	  margin-bottom: 10px;
 	 }
 	  /* 侧边栏 */
 	.el-aside {
@@ -146,7 +147,7 @@
 	}
 	/* 主要内容 */
 	.el-main {
-	    
+
 	}
 	#console{
 		display: inline-block;

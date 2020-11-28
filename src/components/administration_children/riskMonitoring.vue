@@ -23,7 +23,7 @@ export default {
 	console.log("mounted");
 	var map = new AMap.Map('map_container', {
 	    center:[105,37],
-	    
+	    mapStyle: 'amap://styles/blue',
 	    viewMode:'2D',
 	    labelzIndex:130,
 	    zoom:4.5,
