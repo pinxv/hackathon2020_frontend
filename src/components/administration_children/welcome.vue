@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="width: 100%; height: 100%; background-color: #475669;">
 	<div id='carousel_container'>
 		<el-carousel style="height: 100%;">
 		      <el-carousel-item v-for="item in 4" :key="item">
@@ -95,14 +95,14 @@
 	  }
 	  #carousel_container{
 		  width: 40%; 
-		  height: 60%; 
+		  height: 35%; 
 		  padding-left: 10%; 
 		  padding-top: 5%; 
 		  float: left;
 	  }
 	  #tab_container{
 		  width: 40%;
-		  height: 60%; 
+		  height: 35%; 
 		  padding-left: 5%; 
 		  padding-top: 5%; 
 		  float: left;
