@@ -28,12 +28,12 @@
 		      </el-table-column>
 		    </el-table>
 	</div>
-	<div style="width: 100%; height: 750px;" class="map_container">
+	<div style="width: 100%; height: 100%;" class="map_container">
       <amap
         cache-key="map"
         ref="map"
         view-mode="2D"
-        map-style="amap://styles/whitesmoke"
+		map-style="amap://styles/whitesmoke"
         async
         :zoom.sync="zoom"
         :center.sync="center"
@@ -44,12 +44,13 @@
         @hotspotclick="onHotspotClick"
       >
         <amap-marker
-          :position="position"
-          :label="{
-            content: '疫情风险等级可视化地图',
-            direction: 'bottom',
-          }"
+		  ref="marker",
+		  v-for="myMarker in myMarkers",
+		  :position="myMarker.position",
+		  :fillColor="myMarker.color",
+          :label="myMarker.label"
         />
+	
       </amap>
     </div>
 	<div class="login_button_container">
@@ -63,11 +64,14 @@ export default {
   data() {
     return {
       center: [116.473778, 39.990661],
-      position: [116.473778, 39.990661],
       zoom: 4,
       pitch: 45,
       rotation: 0,
 	  search_place:"",
+	  // 风险等级圆点标记
+	  myMarkers:[{position:[116.473778, 29.990661],label:{content:"高",direction:"bottom"}},
+	  {position:[106.473778, 29.990661],label:{content:"中",direction:"bottom"}}],
+	  
 	  list_of_risk_area_data:[{
             date: '2016-05-02',
             risk_level: '高',
