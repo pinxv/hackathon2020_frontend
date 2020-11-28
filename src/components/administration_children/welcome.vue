@@ -95,14 +95,14 @@
 	  }
 	  #carousel_container{
 		  width: 40%; 
-		  height: 35%; 
+		  height: 36%; 
 		  padding-left: 10%; 
 		  padding-top: 5%; 
 		  float: left;
 	  }
 	  #tab_container{
 		  width: 40%;
-		  height: 35%; 
+		  height: 36%; 
 		  padding-left: 5%; 
 		  padding-top: 5%; 
 		  float: left;

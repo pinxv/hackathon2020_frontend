@@ -5,9 +5,7 @@
 		  <el-breadcrumb-item>风险监测</el-breadcrumb-item>
 		</el-breadcrumb>
 	
-		<div style="width: 100%; height: 100%;" class="map_container" id="map_container">
-		
-	</div>
+	
 		<div style="width: 100%; height: 100%;" class="map_container" id="map_container">
 			
 		</div>
