@@ -1,6 +1,5 @@
 <template>
 	<div class="monitoring">
-		<el-button @click="schedule">test</el-button>
 	
 		<div style="width: 100%; height: 100%;" class="map_container" id="map_container">
 		</div>
@@ -11,7 +10,6 @@
 export default {
 	data() {
 		return {
-			
 		}
 	},
 	mounted:function(){
@@ -30,12 +28,13 @@ export default {
 	       
 	    ]
 	});
+	this.schedule(map);
   },
   methods:{
-  	schedule(){
+  	schedule(map){
   		var driving = new AMap.Driving({
   		        map: map,
-  		        panel: "panel"
+  		        panel: "map_container"
   		    }); 
   		driving.search([
   		        {keyword: '北京市地震局(公交站)',city:'北京'},

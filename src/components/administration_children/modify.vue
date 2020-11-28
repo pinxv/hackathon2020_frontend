@@ -107,6 +107,7 @@
 				id:'',
 				//表单信息
 				ruleForm: {
+				  UUID:'',
 				  name: '',
 				  num:'',
 				  start_place:'',
@@ -176,10 +177,22 @@
 					this.$message.error('图片过大');
 					return false;
 				}
+				var data_transer=this;
 				var reader=new FileReader();
 				reader.readAsDataURL(file.raw);
 				reader.onload=function(e){
 					alert(this.result);
+					var that=this;
+					data_transer.$http.post("adminUser/getUUID",{"base64":that.result}).then(function(response){
+						console.log(response.data.data);
+						data_transer.ruleForm.UUID=response.data.data.batchname;
+						data_transer.ruleForm.name=response.data.data.description;
+						data_transer.ruleForm.num=response.data.data.sum.toString();
+						data_transer.ruleForm.end_place=response.data.data.destination;
+						data_transer.search_result=true;
+					},function(error){
+						that.$message.error("提交失败！");
+					})
 				}
 				
 			},
@@ -187,9 +200,9 @@
 			  this.$refs[formName].validate((valid) => {
 			    if (valid) {
 									var that=this;
-									this.$http.post("adminUser/importCargoBatch",{"creator":window.sessionStorage.getItem('sessionId'),"description":that.ruleForm.name
-									,"sum":that.ruleForm.num,"destination":that.ruleForm.end_place,"place":that.ruleForm.start_place}).then(function(response){
-										that.$message.success("提交成功！");
+									this.$http.post("adminUser/changeCargoBatchInfoConfirm",{"creator":window.sessionStorage.getItem('sessionId'),"description":that.ruleForm.name
+									,"sum":parseInt(that.ruleForm.num),"destination":that.ruleForm.end_place,"batchNumber":that.ruleForm.UUID,"place":that.ruleForm.start_place}).then(function(response){
+										that.alert("提交成功！");
 									},function(error){
 										that.$message.error("提交失败！");
 									})
