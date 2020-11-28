@@ -1,12 +1,12 @@
 <template>
   <div class="home">
 	  <div class="left_news_container">
-		  
 		  <el-drawer
 		    :visible.sync="drawer"
 		    direction="ltr"
 		    :before-close="handleClose"
-			:modal="false">
+			:modal="false"
+			title="新闻列表">
 		    <el-card class="news_list">
 				<el-collapse v-model="activeName" accordion>
 					<div v-for="(news,index) in news_array" class="text item">
@@ -286,6 +286,7 @@ export default {
 
 
 <style scoped="scoped">
+
 	.home {
 		margin: 0;
 		padding: 0;
