@@ -12,6 +12,10 @@ Vue.config.productionTip = false
 // 配置地图
 AmapVue.config.key = "3a722c205c327398fd21c23f499b7878";
 Vue.use(AmapVue)
+axios.interceptors.request.use(config =>{
+	config.headers.Authorization =window.sessionStorage.getItem('sessionId');
+	return config;
+})
 //配置请求的根路径
 axios.defaults.baseURL = 'http://118.178.255.173:8080/api/';
 //配置请求的默认头部

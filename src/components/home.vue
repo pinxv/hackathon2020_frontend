@@ -91,7 +91,7 @@ export default {
 	    center:[105,37],
 	    
 	    viewMode:'2D',
-	    labelzIndex:130,
+	    labelzIndex:100,
 	    zoom:4.5,
 	    layers:[
 	        new AMap.TileLayer({
@@ -147,7 +147,8 @@ export default {
 	// 为地图绘制风险地区标记
 	drawRiskLevelMarker(map) {
 		var i = 0;
-		map.clearMap();//刷新地图覆盖物
+		map.clearMap();
+		//刷新地图覆盖物
 		console.log("正在绘制标记");
 		console.log(this.risk_level_areas);
 		var infoWindow = new AMap.InfoWindow({ //创建信息窗体
@@ -157,17 +158,23 @@ export default {
 		   });
 		var onMarkerClick  =  function(e) {
 		        infoWindow.open(map, e.target.getPosition());//打开信息窗体
+				//alert("onclick");
+				alert(e.target.getExtData())
 		        //e.target就是被点击的Marker
 		    } 
 		for(i = 0; i < this.risk_level_areas.length; i++){
 			// 创建一个 Marker 实例：
 			var marker = new AMap.Marker({
 			    position: new AMap.LngLat(this.risk_level_areas[i].longitude,this.risk_level_areas[i].latitude),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
-				cursor: "pointer"
+				cursor: "pointer",
+				labelzIndex:120,
+				extData:i,
 			});
-			
+			//marker.on('mouseover',click);
+			//AMap.event.addListener(marker,"mouseover",onMarkerClick);
 			// console.log("extData:"+marker.extData);
 			// 将创建的点标记添加到已有的地图实例：
+			marker.on('click',onMarkerClick);
 			map.add(marker);
 			this.drawBounds(map,this.risk_level_areas[i].adcode,null,[]);
 		}
