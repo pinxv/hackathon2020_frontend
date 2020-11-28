@@ -8,6 +8,17 @@
 	  	id="search_place">
 	   </el-input>
 	</div>
+	<el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
+	  点我打开
+	</el-button>
+	
+	<el-drawer
+	  title="我是标题"
+	  :visible.sync="drawer"
+	  :direction="direction"
+	  :before-close="handleClose">
+	  <span>我来啦!</span>
+	</el-drawer>
 	<div class="list_of_risk_area">
 		<el-table
 		      :data="list_of_risk_area_data"
@@ -71,21 +82,27 @@ export default {
     };
 	
   },
+
+  mounted:function(){
+	var map = new AMap.Map('map_container', {
+	    center:[105,37],
+	    
+	    viewMode:'2D',
+	    labelzIndex:130,
+	    zoom:4.5,
+	    layers:[
+	        new AMap.TileLayer({
+	            zIndex:7
+	        }),
+	       
+	    ]
+	});
+  },
+
   //在页面加载后请求风险地区信息
   created:function() {
 	  console.log("created");
   	this.getRiskLevelInfo();
-  },
-  mounted:function(){
-	console.log("mounted");
-
-	 var map = new AMap.Map('map_container', {
-	        zoom:4,//级别
-	        center: [116.397428, 39.90923],//中心点坐标
-	        viewMode:'2D'//使用3D视图
-	    });
-
-
   },
   methods: {
 	login() {
@@ -148,10 +165,5 @@ export default {
 		right: 5px;
 		bottom: 5px;
 		z-index: 2;
-	}
-	html,body,#map_container{
-	    margin:0;
-	    height:100%;
-	    background-color:rgb(216, 238,250) !important
 	}
 </style>
