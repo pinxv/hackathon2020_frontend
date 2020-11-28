@@ -1,17 +1,23 @@
 <template>
   <div class="home">
 	  <div class="left_news_container">
-		  
 		  <el-drawer
 		    :visible.sync="drawer"
 		    direction="ltr"
 		    :before-close="handleClose"
-			:modal="false">
+			:modal="false"
+			title="新闻列表">
 		    <el-card class="news_list">
-		      <div v-for="news in news_array" class="text item">
-				  <a :href="news.url">{{news.title}}</a>
-		        
-		      </div>
+				<el-collapse v-model="activeName" accordion>
+					<div v-for="(news,index) in news_array" class="text item">
+						
+						<el-collapse-item :title="news.title" :name="index">
+						  <div><a :href="news.url">新闻链接</a></div>
+						  <div>{{news.description}}</div>
+						</el-collapse-item>
+					</div>
+				 
+				</el-collapse>
 		    </el-card>
 		  </el-drawer>
 	  </div>
@@ -280,6 +286,7 @@ export default {
 
 
 <style scoped="scoped">
+
 	.home {
 		margin: 0;
 		padding: 0;

@@ -51,6 +51,7 @@
 				var that=this;
 				this.$http.post("adminUser/login",{"username":that.login_form.username,"password":that.login_form.password}).then(function(response){
 					window.sessionStorage.setItem('sessionId',response.data.data.username)
+					that.$message.success("登录成功！");
 					that.$router.push('/administration')
 				},function(error){
 					that.$message.error("登录失败！");
