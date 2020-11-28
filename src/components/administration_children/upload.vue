@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="width: 100%; height: 100%; background-color: rgba(41,41,61,.7);">
 		
 	<div style="padding-top: 5%;">
 		<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
