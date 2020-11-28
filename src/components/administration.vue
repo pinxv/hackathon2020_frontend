@@ -89,7 +89,7 @@
 	}
 </script>
 
-<style>
+<style scoped="scoped">
 	.administration {
 		height: 100%;
 	}
