@@ -5,7 +5,7 @@
 		  <el-header>
 			  <!-- logo -->
 			  <div class="logo">
-				  <img src="../assets/img/冯虚御风标题.png" alt="" width="500px" height="50px">
+				  <img src="../assets/img/冯虚御风标题白色.png" alt="" width="500px" height="50px">
 				  
 				  
 			  </div>
