@@ -10,6 +10,7 @@
 export default {
 	data() {
 		return {
+			path:[],
 		}
 	},
 	mounted:function(){
@@ -28,26 +29,57 @@ export default {
 	       
 	    ]
 	});
-	this.schedule(map);
+	var that=this;
+	this.$http.get("adminUser/history",{params:{username:window.sessionStorage.getItem("sessionId")}}).then(function(response){
+		var geocoder = new AMap.Geocoder({
+		    city: '全国'
+		  })
+		  var destll;
+		  var placell;  
+		for(var i=0;i<response.data.data.length;i++){
+			var count=i;
+			that.getloc(response.data.data[i],geocoder).then(function(response){
+				var polyline = new AMap.Polyline({
+				    path: response.path,  
+					map:map,
+				    borderWeight: 2, // 线条宽度，默认为 1
+				    strokeColor: 'green', // 线条颜色
+				    lineJoin: 'round' // 折线拐点连接处样式
+				});
+				if(!response.isSafe){
+					polyline.setOptions({strokeColor:"#ff8033"})
+				} 
+			})
+			
+		}
+	},function(error){
+		that.$message.error("提交失败！"+error);
+	})
   },
   methods:{
-  	schedule(map){
-  		var driving = new AMap.Driving({
-  		        map: map,
-				autoFitView:false,
-  		    }); 
-  		driving.search([
-  		        {keyword: '北京市地震局(公交站)',city:'北京'},
-  		        {keyword: '亦庄文化园(地铁站)',city:'北京'}
-  		    ], function(status, result) {
-  		        // result 即是对应的驾车导航信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
-  		        if (status === 'complete') {
-  		            log.success('绘制驾车路线完成')
-  		        } else {
-  		            log.error('获取驾车数据失败：' + result)
-  		        }
-  		    });
-  	}
+  	getloc: async function(data,geocoder){
+		var obj={
+			isSafe:data.isSafe,
+			destll:'',
+			placell:'',
+			path:new Array(2),
+		}
+		var destll;
+		var placell; 
+		geocoder.getLocation(data.destination, function(status, result) {
+		    if (status === 'complete' && result.info === 'OK') {
+		         destll=result.geocodes[0].location;
+				 obj.path.push(destll);
+		    }
+		  })
+		geocoder.getLocation(data.place, function(status, result) {
+		    if (status === 'complete' && result.info === 'OK') {
+		         placell=result.geocodes[0].location;
+				 obj.path.push(placell)
+		    }
+		  })  
+		  return obj;
+	}
   }
 
 }
