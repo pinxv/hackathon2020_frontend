@@ -1,7 +1,7 @@
 <template>
 	<div>
 	<div id='carousel_container'>
-		<el-carousel>
+		<el-carousel style="height: 100%;">
 		      <el-carousel-item v-for="item in 4" :key="item">
 		        <h3 class="small"></h3>
 		      </el-carousel-item>
@@ -34,30 +34,30 @@
 		<div id='inform1' class="infor">
 			<el-card class="box-card" style="height: 100%;">
 			  <div slot="header" class="clearfix">
-			    <span>卡片名称1</span>
+			    <span>已上传货物数量</span>
 			  </div>
-			  <div>
-				<span>内容</span>
+			  <div class="welcome_span_container">
+				<span>{{Uploaded}}</span>
 			  </div>
 			</el-card>
 		</div>
 		<div id='inform2' class="infor">
 			<el-card class="box-card" style="height: 100%;">
 			  <div slot="header" class="clearfix">
-			    <span>卡片名称2</span>
+			    <span>安全货物数量</span>
 			  </div>
-			  <div>
-				<span>内容</span>
+			  <div class="welcome_span_container">
+				<span>{{Safe}}</span>
 			  </div>
 			</el-card>
 		</div>
 		<div id='inform3' class="infor">
 			<el-card class="box-card" style="height: 100%;">
 			  <div slot="header" class="clearfix">
-			    <span>卡片名称3</span>
+			    <span>危险货物数量</span>
 			  </div>
-			  <div>
-				<span>内容</span>
+			  <div class="welcome_span_container">
+				<span>{{Danger}}</span>
 			  </div>
 			</el-card>
 		</div>
@@ -67,7 +67,13 @@
 
 <script>
 	export default {
-		
+		data(){
+			return{
+				Uploaded:0,
+				Safe:0,
+				Danger:0,
+			}
+		},
 	}
 </script>
 
@@ -107,22 +113,34 @@
 	  }
 	  #inform1{
 		float: left;
-		padding-left: 15%;
+		padding-left: 16%;
 		padding-top: 10%;
+		height: 30%;
 	  }
 	  #inform2{
 		float: left;
-		padding-left: 15%;
+		padding-left: 16%;
 	  	padding-top: 10%;
+		height: 30%;
 	  }
 	  #inform3{
 		float: left;
-	  	padding-left: 15%;
+	  	padding-left: 16%;
 	  	padding-top: 10%;
+		height: 30%;
 	  }
 	  #inform_container{
 		  float: left;
-		  padding-left: 1%;
 		  width: 80%;
+	  }
+	  .clearfix{
+		  height: 20px;
+		  text-align: center;
+	  }
+	  .welcome_span_container{
+		  height: 100px;
+		  text-align: center;
+		  font-size: 60px;
+		  font-weight: 700;
 	  }
 </style>

@@ -48,7 +48,12 @@
 		},
 		methods: {
 			login() {
-				this.$router.push('/administration')
+				var that=this;
+				this.$http.post("adminuser/login",{"username":that.login_form.username,"password":that.login_form.password}).then(function(response){
+					that.$router.push('/administration')
+				},function(error){
+					that.$message.error("登录失败！");
+				})
 			}
 		}
 	}
