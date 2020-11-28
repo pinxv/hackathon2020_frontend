@@ -1,6 +1,18 @@
 <template>
 	<div>
-		
+		<div id='dialog_container'>
+			<el-dialog
+			  class="callback_dialog"
+			  title="获得二维码"
+			  :visible.sync="dialogVisible"
+			  width="30%">
+			  <img :src="imgurl"/>
+			  <span slot="footer" class="dialog-footer">
+			    <el-button @click="dialogVisible = false">取 消</el-button>
+			    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+			  </span>
+			</el-dialog>
+		</div>
 	<div style="padding-top: 5%;">
 		<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
 		  <el-form-item label="货物名称" prop="name" style="width: 40%;">
@@ -80,6 +92,8 @@
 		          //resource: '',
 		          //desc: ''
 		        },
+				dialogVisible:false,
+				imgurl:'',
 		        rules: {
 		          name: [
 		            { required: true, message: '请输入货物名称', trigger: 'blur' },
@@ -141,10 +155,12 @@
 			          if (valid) {
 						var that=this;
 						this.$http.post("adminUser/importCargoBatch",{"creator":window.sessionStorage.getItem('sessionId'),"description":that.ruleForm.name
-						,"sum":that.ruleForm.num,"destination":that.ruleForm.end_place,"place":that.ruleForm.start_place}).then(function(response){
-							that.$message.success("提交成功！");
+						,"sum":parseInt(that.ruleForm.num),"destination":that.ruleForm.end_place,"place":that.ruleForm.start_place}).then(function(response){
+							that.dialogVisible=true;
+							that.imgurl=response.data.data;
+							
 						},function(error){
-							that.$message.error("提交失败！");
+							that.$message.error("提交失败！"+error);
 						})
 			          } else {
 			            alert('提交错误');
