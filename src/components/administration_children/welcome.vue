@@ -1,34 +1,11 @@
 <template>
 	<div style="width: 100%; height: 100%; background-color: rgba(41,41,61,.7);">
 	<div id='carousel_container'>
-		<el-carousel style="height: 100%;">
+		<el-carousel style="height: 140%;" type="card" :interval="4000">
 		      <el-carousel-item v-for="item in 4" :key="item">
 		        <h3 class="small"></h3>
 		      </el-carousel-item>
 		    </el-carousel>
-	</div>
-	<div id='tab_container'>
-		<el-tabs type="border-card" >
-		  <el-tab-pane label="平台信息">
-			  <el-table
-			        :data="tableData"
-			        style="width: 100%">
-			        <el-table-column
-			          prop="date"
-			          label="日期"
-			          width="180">
-			        </el-table-column>
-			        <el-table-column
-			          prop="name"
-			          label="事件"
-			          width="180">
-			        </el-table-column>
-			      </el-table>
-		  </el-tab-pane>
-		  <!--<el-tab-pane label="配置管理">配置管理</el-tab-pane>
-		  <el-tab-pane label="角色管理">角色管理</el-tab-pane>
-		  <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>-->
-		</el-tabs>
 	</div>
 	<div id='inform_container'>
 		<div id='inform1' class="infor">
@@ -94,16 +71,9 @@
 	     background-color: #d3dce6;
 	  }
 	  #carousel_container{
-		  width: 40%; 
+		  width: 80%; 
 		  height: 36%; 
 		  padding-left: 10%; 
-		  padding-top: 5%; 
-		  float: left;
-	  }
-	  #tab_container{
-		  width: 40%;
-		  height: 36%; 
-		  padding-left: 5%; 
 		  padding-top: 5%; 
 		  float: left;
 	  }
@@ -131,7 +101,7 @@
 	  }
 	  #inform_container{
 		  float: left;
-		  width: 80%;
+		  width: 90%;
 	  }
 	  .clearfix{
 		  height: 20px;
