@@ -151,16 +151,28 @@ export default {
 		//刷新地图覆盖物
 		console.log("正在绘制标记");
 		console.log(this.risk_level_areas);
-		var infoWindow = new AMap.InfoWindow({ //创建信息窗体
-		       isCustom: true,  //使用自定义窗体
-		       content:'<div>信息窗体</div>', //信息窗体的内容可以是任意html片段
-		       offset: new AMap.Pixel(16, -45)
-		   });
+		var that = this;
 		var onMarkerClick  =  function(e) {
-		        infoWindow.open(map, e.target.getPosition());//打开信息窗体
-				//alert("onclick");
-				alert(e.target.getExtData())
-		        //e.target就是被点击的Marker
+				var id = e.target.getExtData();
+				console.log(id);
+		        that.drawer = true;
+				var i = 0;
+				// 发送新闻请求
+				console.log("发送新闻请求");
+				console.log(this.risk_level_areas);
+				that.$http.get('news?highRiskAreaId='+id).then(function(response){
+					
+					if(response.data.code === 200){
+						that.$message.success("风险地区新闻加载成功！");
+						that.news_array = response.data.data;
+						console.log(that.news_array);
+					}
+					else {
+						that.$message.error("风险地区新闻加载失败！");
+					}
+				},function(error){
+					that.$message.error("风险地区新闻加载失败！");
+				});
 		    } 
 		for(i = 0; i < this.risk_level_areas.length; i++){
 			// 创建一个 Marker 实例：
@@ -168,7 +180,7 @@ export default {
 			    position: new AMap.LngLat(this.risk_level_areas[i].longitude,this.risk_level_areas[i].latitude),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
 				cursor: "pointer",
 				labelzIndex:120,
-				extData:i,
+				extData:this.risk_level_areas[i].id,
 			});
 			//marker.on('mouseover',click);
 			//AMap.event.addListener(marker,"mouseover",onMarkerClick);
