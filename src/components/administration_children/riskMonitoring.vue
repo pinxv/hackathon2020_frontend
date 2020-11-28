@@ -1,6 +1,5 @@
 <template>
 	<div class="monitoring">
-		<el-button @click="schedule">test</el-button>
 	
 		<div style="width: 100%; height: 100%;" class="map_container" id="map_container">
 		</div>
