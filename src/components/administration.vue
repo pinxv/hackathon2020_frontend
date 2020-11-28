@@ -5,16 +5,25 @@
 		  <el-header>
 			  <!-- logo -->
 			  <div class="logo">
-				  <img src="../assets/logo.png" alt="" width="50px" height="50px">
+				  <img src="../assets/img/冯虚御风标题.png" alt="" width="500px" height="50px">
 				  
 				  
 			  </div>
-			  <div class="console_container" style="position: absolute; left: 90px;">
-				  <span id='console'>网站控制台</span>
-			  </div>
+			  
 			  <!-- 账号信息 -->
 			  <div class="info">
-				  账号信息
+				  <el-menu
+				    :default-active="activeIndex2"
+				    class="el-menu-demo"
+				    mode="horizontal"
+				    @select="handleSelect"
+				    background-color=rgb(51,51,61)
+				    text-color="#fff"
+				    active-text-color="#ffd04b">
+				    <el-menu-item index="1">消息中心</el-menu-item>
+				    <el-menu-item index="2">账户信息</el-menu-item>
+				    
+				  </el-menu>
 			  </div>
 		  </el-header>
 		  <el-container>
@@ -26,7 +35,7 @@
 				      class="el-menu-vertical-demo"
 				      @open="handleOpen"
 				      @close="handleClose"
-				      background-color="#545c64"
+				      background-color=rgb(51,51,61)
 				      text-color="#fff"
 				      active-text-color="#ffd04b"
 					  :collapse="isCollapse"
@@ -99,7 +108,7 @@
 	}
 	/* 头部 */
 	.el-header {
-	  background-color: #B3C0D1;
+	  background-color: rgb(50,50,61);
 	  display: flex;
 	  justify-content: space-between;
 	  align-items: center;
@@ -107,7 +116,10 @@
 	 }
 	  /* 侧边栏 */
 	.el-aside {
-	  background-color: rgb(84,92,100);
+	  background-color: rgb(51,51,61);
+	 }
+	 .info {
+		 background-color: rgb(51,51,61);
 	 }
 	 /* 解决侧边栏不对齐问题 */
 	.el-menu {
@@ -115,7 +127,7 @@
 	}
 	/* 实现侧边栏的折叠 */  
 	.toggle-button {
-		background-color: rgba(84,92,100,.2);
+		background-color: rgb(51,51,61);
 		color: white;
 		font-size: 10px;
 		line-height: 22px;
