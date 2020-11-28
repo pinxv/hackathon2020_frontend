@@ -1,22 +1,50 @@
 <template>
-	<div class="login">
-		<div class="login_container">
-			<img id='pic' src="../assets/logo.png"/>
-			<el-input class="input" v-model="account" placeholder="请输入账号" style="top: 40%;"></el-input>
-			<el-input class="input" v-model="password" placeholder="请输入密码" style="top: 50%;"></el-input>
-			<el-button id='login' type="primary" @click="login">登录</el-button>
-			<el-button id='reg' type="success">注册</el-button>
-		</div>
+	<div class="login_container">
+	  <!-- 登录模块 -->
+	  <div class="login_box">
+	    <!-- 登录表单 -->
+	    <el-form label-width="0px" class="login_form" :model="login_form" :rules="login_form_rules" ref="loginFormRef">
+	      <!-- 用户名 -->
+	      <el-form-item prop="username">
+	        <el-input prefix-icon="el-icon-user-solid" v-model="login_form.username"></el-input>
+	      </el-form-item>
+	      <!-- 密码 -->
+	      <el-form-item prop="password">
+	        <el-input prefix-icon="el-icon-lock" v-model="login_form.password" type="password"></el-input>
+	      </el-form-item>
+	      <!-- 按钮区域 -->
+	      <el-form-item class="button_container">
+	        <el-button type="success" id="button_login" @click="login">登录</el-button>
+	        <el-button type="primary" id="button_register">注册</el-button>
+	      </el-form-item>
+	    </el-form>
+	  </div>
 	</div>
 </template>
 
 <script>
 	export default {
 		data() {
-			return {
-				account:'',
-				password:'',
-			}
+		  return {
+		    //登录表单数据绑定对象
+		    login_form: {
+		      username:'',
+		      password:''
+		    },
+		    login_form_rules:{
+		      //验证输入是否合法
+		      username:[
+		        {required:true,message:"请输入用户名",trigger:"blur"},
+		        {min:3,max:10,message:"长度在3到10个字符",trigger:"blur"}
+		      ],
+		      //验证密码是否合法
+		      password:[
+		        {required:true,message:"请输入密码",trigger:"blur"},
+		        {min:6,max:12,message:"长度在6到12个字符",trigger:"blur"}
+		      ]
+		    },
+			
+		  }
 		},
 		methods: {
 			login() {
@@ -27,35 +55,47 @@
 </script>
 
 <style scoped="scoped">
+	/* 登录容器样式 */
 	.login_container {
-		position: absolute;
-		width: 50%;
-		height: 50%;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%,-50%);
+	  background-color: white;
+	  height: 100%;
 	}
-	.input{
-		left: 20%;
-		width: 60%;
-		height: 10%;
+	
+	.login_box {
+	  width: 525px;
+	  height: 350px;
+	  background-color: white;
+	  border-radius: 3px;
+	  position: absolute;
+	  left: 50%;
+	  top: 50%;
+	  transform: translate(-50%, -50%);
+	  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1)
 	}
-	#login{
-		position: absolute;
-		width: 10%;
-		left: 27%;
-		top:80%
+	
+	
+	#avatar_img {
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+	  background-color: #eee;
 	}
-	#reg{
-		position: absolute;
-		width: 10%;
-		left: 64%;
-		top:80%
+	/* 登录表单样式 */
+	.login_form {
+	  position: absolute;
+	  top: 30%;
+	  width: 100%;
+	  padding: 0 15%;
+	  box-sizing: border-box;
 	}
-	#pic{
-		position: absolute;
-		width: 30%;
-		height: 30%;
-		left: 35%;
+	/* 按钮样式 */
+	.button_container {
+	  position: relative;
+	  bottom: 0;
+	  top: 30%;
+	  left: 19%;
+	}
+	#button_login {
+		margin-right: 80px;
 	}
 </style>
