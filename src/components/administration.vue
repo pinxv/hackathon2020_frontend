@@ -6,8 +6,11 @@
 			  <!-- logo -->
 			  <div class="logo">
 				  <img src="../assets/logo.png" alt="" width="50px" height="50px">
-				  <span>网站控制台</span>
 				  
+				  
+			  </div>
+			  <div class="console_container" style="position: absolute; left: 90px;">
+				  <span id='console'>网站控制台</span>
 			  </div>
 			  <!-- 账号信息 -->
 			  <div class="info">
@@ -123,6 +126,11 @@
 	.el-main {
 	    background-color: #E9EEF3;
 	    
+	}
+	#console{
+		display: inline-block;
+		height: 50%;
+		left: 20%;
 	}
 	
 	  
