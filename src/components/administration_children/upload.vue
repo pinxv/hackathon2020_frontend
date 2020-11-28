@@ -87,7 +87,7 @@
 		        rules: {
 		          name: [
 		            { required: true, message: '请输入货物名称', trigger: 'blur' },
-		            { min: 1, max: 7, message: '长度在 1 到 7 个字符', trigger: 'blur' }
+		            { min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' }
 		          ],
 				  num: [
 				    { required: true, message: '请输入货物数量', trigger: 'blur' },
@@ -122,23 +122,39 @@
 		        }
 		      };
 		    },
+			/**created:function(){
+				var that=this;
+				AMap.plugin('AMap.Geolocation', function() {
+				        var geolocation = new AMap.Geolocation({
+				            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+				            timeout: 10000,          //超过10秒后停止定位，默认：5s //定位成功后是否自动调整地图视野到定位点
+				
+				        });
+				        geolocation.getCurrentPosition(function(status,result){
+				            if(status=='complete'){
+				                that.start_place=result.addressComponent.province+result.addressComponent.city+result.addressComponent.district+result.addressComponent.street;
+				            }else{
+				                alert("请求出错"+result.info+result.message);
+				            }
+				        });
+				    });
+			},**/
 			methods: {
 			      submitForm(formName) {
-			        /*this.$refs[formName].validate((valid) => {
+			        this.$refs[formName].validate((valid) => {
 			          if (valid) {
-			            alert('submit!');
 						var that=this;
-						this.$http.post("admin/importCargoBatch",{"username":that.login_form.username,"password":that.login_form.password}).then(function(response){
-							window.sessionStorage.setItem('sessionId',response.data.data.username)
-							that.$router.push('/administration')
+						this.$http.post("adminUser/importCargoBatch",{"creator":window.sessionStorage.getItem('sessionId'),"description":that.ruleForm.name
+						,"sum":that.ruleForm.num,"destination":that.ruleForm.end_place,"place":that.ruleForm.start_place}).then(function(response){
+							that.$message.success("提交成功！");
 						},function(error){
-							that.$message.error("登录失败！");
+							that.$message.error("提交失败！");
 						})
 			          } else {
-			            console.log('error submit!!');
+			            alert('提交错误');
 			            return false;
 			          }
-			        });*/
+			        });
 			      },
 			      resetForm(formName) {
 			        this.$refs[formName].resetFields();

@@ -23,9 +23,8 @@ export default {
 	console.log("mounted");
 	var map = new AMap.Map('map_container', {
 	    center:[105,37],
-	    
 	    viewMode:'2D',
-	    labelzIndex:130,
+	    labelzIndex:100,
 	    zoom:4.5,
 	    layers:[
 	        new AMap.TileLayer({
