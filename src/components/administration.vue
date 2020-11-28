@@ -147,7 +147,13 @@
 	}
 	/* 主要内容 */
 	.el-main {
-
+		margin-top: 5px;
+		margin-left: 10px;
+		padding: 0;
+		border-color: rgb(51,51,61);
+		border-style: solid;
+		border-width: 5px;
+		border-radius: 5px;
 	}
 	#console{
 		display: inline-block;
