@@ -149,6 +149,22 @@ export default {
 	});
 	this.map = map;
 	console.log(this.map);
+	/**var that=this;
+	this.$http.get("adminUser/history",{params:{username:"admin"}}).then(function(response){
+		var geocoder = new AMap.Geocoder({
+		    city: '全国'
+		  }) 
+		  //console.log(response.data.data);
+		for(var i=0;i<response.data.data.length;i++){
+			var count=i;
+			var input=response.data.data[response.data.data.length-1];
+			that.getloc(input,geocoder,that.map);
+			
+			
+		}
+	},function(error){
+		that.$message.error("提交失败！"+error);
+	})**/
 	this.getRiskLevelInfo(map);
   },
 
@@ -335,6 +351,11 @@ export default {
 					dialog_transer.tableVisible=true;
 					dialog_transer.dialogVisible=false;
 					dialog_transer.userVisible=true;
+					var that=this;
+					var geocoder = new AMap.Geocoder({
+					    city: '全国'
+					  }) 
+					dialog_transer.getloc(["天津市滨海新区","江苏省南京市栖霞区南京大学"],geocoder,dialog_transer.map);
 				},function(error){
 					that.$message.error("提交失败！");
 				})
@@ -363,6 +384,40 @@ export default {
 			},function(error){
 				that.$message.error("提交失败！"+error);
 			})
+		},
+		getloc: async function(data,geocoder,map){
+			var obj={
+				isSafe:data.isSafe,
+				path:new Array(),
+			}
+			var destll=new AMap.LngLat(116.368904,39.913423);
+			var placell=new AMap.LngLat(110.387271,33.912501); 
+			obj.path.push(destll);
+			var dest_marker = new AMap.Marker({
+			   position: destll,   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+				cursor: "pointer",
+				labelzIndex:120,
+				map:map,
+			});
+			obj.path.push(placell)
+			var dest_marker = new AMap.Marker({
+			    position: placell,   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+				  cursor: "pointer",
+				  labelzIndex:120,
+				  map:map,
+			});
+			var polyline = new AMap.Polyline({
+			    path: obj.path,  
+				map:map,
+											  labelzIndex:130,
+			    borderWeight: 2, // 线条宽度，默认为 1
+			    strokeColor: '#aaff00', // 线条颜色
+			    lineJoin: 'round' // 折线拐点连接处样式
+			});
+			if(obj.isSafe===false){
+				polyline.setOptions({strokeColor:"#ff0000"})
+			} 
+			
 		}
   },
   
