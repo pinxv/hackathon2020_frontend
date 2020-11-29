@@ -161,6 +161,7 @@
 						,"sum":parseInt(that.ruleForm.num),"destination":that.ruleForm.end_place,"place":that.ruleForm.start_place}).then(function(response){
 							that.dialogVisible=true;
 							that.imgurl=response.data.data;
+							alert("提交成功！")
 						},function(error){
 							that.$message.error("提交失败！"+error);
 						})

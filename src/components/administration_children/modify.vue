@@ -44,7 +44,7 @@
 			   <el-form-item label="货物数量" prop="num" style="width: 20%;">
 			     <el-input v-model="ruleForm.num"></el-input>
 			   </el-form-item>
-			   <el-form-item label="发货地址" prop="start_place"  style="width: 40%;">
+			   <el-form-item label="途径地址" prop="start_place"  style="width: 40%;">
 			     <el-input v-model="ruleForm.start_place"></el-input>
 			   </el-form-item>
 			   <el-form-item label="收货地址" prop="end_place"  style="width: 40%;">

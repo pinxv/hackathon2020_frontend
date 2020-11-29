@@ -83,8 +83,8 @@
 	    placeholder="请输入溯源码查询"
 	    prefix-icon="el-icon-search"
 	    v-model="search_place"
-	  	id="search_place">
-	   </el-input>
+	  	id="search_bar" style="width: 60%;">
+	   </el-input> <el-button @click="submit">提交</el-button>
 	</div>
 	<div id="scan_container">
 		<el-button id="scan" icon="logo.png" circle style="width: 100px; height: 100px;" @click="scan_dialog">扫码</el-button>
@@ -339,6 +339,30 @@ export default {
 					that.$message.error("提交失败！");
 				})
 			}
+		},
+		submit(){
+			var that=this;
+			this.$http.get("adminUser/getDetailsByUUID",{params:{UUID:this.search_place}}).then(function(response){
+				//that.UUID=response.data.data.uuid;
+				for(var i=0;i<that.tableData.length;i++){
+					that.tableData.pop();
+				}
+				for(var i=0;i<response.data.data.placeList.length;i++){
+					var newobj={
+						date: response.data.data.placeList[i].time,
+						name: response.data.data.description,
+						address: response.data.data.placeList[i].place
+					}
+					that.tableData.push(newobj);
+				}
+			    that.UUID=response.data.data.uuid;
+				that.ruleForm.name=response.data.data.description;
+				that.tableVisible=true;
+				that.dialogVisible=false;
+				that.userVisible=true;
+			},function(error){
+				that.$message.error("提交失败！"+error);
+			})
 		}
   },
   
@@ -348,7 +372,10 @@ export default {
 
 
 <style scoped="scoped">
-
+	#search_bar{
+		float: left;
+		
+	}
 	.home {
 		margin: 0;
 		padding: 0;
@@ -362,7 +389,8 @@ export default {
 	}
 	/* 搜索框 */
 	.search_place {
-		width: 300px;
+		float: left;
+		width: 20%;
 		position: absolute;
 		left: 50%;
 		top: 5px;

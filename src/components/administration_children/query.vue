@@ -82,6 +82,10 @@
 				this.$http.get("adminUser/getDetailsByUUID",{params:{UUID:this.UUID}}).then(function(response){
 					console.log(response);
 					that.UUID=response.data.data.uuid;
+					var len=that.tableData.length
+					for(var j=0;j<len;j++){
+						that.tableData.pop();
+					}
 					for(var i=0;i<response.data.data.placeList.length;i++){
 						var newobj={
 							date: response.data.data.placeList[i].time,
@@ -115,7 +119,6 @@
 				var table_transer=this;
 				reader.readAsDataURL(file.raw);
 				reader.onload=function(e){
-					var that=this;
 					console.log(that.result);
 					table_transer.$http.post("adminUser/getDetails",{"base64":that.result}).then(function(response){
 						console.log(response.data.data);
