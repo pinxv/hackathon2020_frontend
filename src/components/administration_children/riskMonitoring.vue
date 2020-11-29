@@ -11,11 +11,12 @@ export default {
 	data() {
 		return {
 			path:[],
+			map:{},
 		}
 	},
 	mounted:function(){
 	console.log("mounted");
-	var map = new AMap.Map('map_container', {
+	this.map = new AMap.Map('map_container', {
 	    center:[105,37],
 	    mapStyle: 'amap://styles/blue',
 
@@ -34,22 +35,12 @@ export default {
 		var geocoder = new AMap.Geocoder({
 		    city: '全国'
 		  }) 
-		  console.log(response.data.data);
+		  //console.log(response.data.data);
 		for(var i=0;i<response.data.data.length;i++){
 			var count=i;
 			var input=response.data.data[i];
-			that.getloc(input,geocoder).then(function(response){
-				var polyline = new AMap.Polyline({
-				    path: response.path,  
-					map:map,
-				    borderWeight: 2, // 线条宽度，默认为 1
-				    strokeColor: 'green', // 线条颜色
-				    lineJoin: 'round' // 折线拐点连接处样式
-				});
-				if(response.isSafe===false){
-					polyline.setOptions({strokeColor:"#ff8033"})
-				} 
-			})
+			that.getloc(input,geocoder,that.map);
+				
 			
 		}
 	},function(error){
@@ -57,12 +48,10 @@ export default {
 	})
   },
   methods:{
-  	getloc: async function(data,geocoder){
+  	getloc: async function(data,geocoder,map){
 		var obj={
 			isSafe:data.isSafe,
-			destll:'',
-			placell:'',
-			path:new Array(2),
+			path:new Array(),
 		}
 		var destll;
 		var placell; 
@@ -70,15 +59,27 @@ export default {
 		    if (status === 'complete' && result.info === 'OK') {
 		         destll=result.geocodes[0].location;
 				 obj.path.push(destll);
+				 geocoder.getLocation(data.place, function(status, result) {
+				     if (status === 'complete' && result.info === 'OK') {
+				          placell=result.geocodes[0].location;
+				 		  obj.path.push(placell)
+						  var polyline = new AMap.Polyline({
+						      path: obj.path,  
+						  	  map:map,
+							  labelzIndex:130,
+						      borderWeight: 2, // 线条宽度，默认为 1
+						      strokeColor: 'green', // 线条颜色
+						      lineJoin: 'round' // 折线拐点连接处样式
+						  });
+						  if(obj.isSafe===false){
+						  	polyline.setOptions({strokeColor:"#ff8033"})
+						  } 
+						  console.log(map);
+						  
+				     }
+				   })  
 		    }
 		  })
-		geocoder.getLocation(data.place, function(status, result) {
-		    if (status === 'complete' && result.info === 'OK') {
-		         placell=result.geocodes[0].location;
-				 obj.path.push(placell)
-		    }
-		  })  
-		  return obj;
 	}
   }
 
