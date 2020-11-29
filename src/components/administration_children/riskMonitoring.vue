@@ -59,20 +59,32 @@ export default {
 		    if (status === 'complete' && result.info === 'OK') {
 		         destll=result.geocodes[0].location;
 				 obj.path.push(destll);
+				 var dest_marker = new AMap.Marker({
+				     position: destll,   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+				 	cursor: "pointer",
+				 	labelzIndex:120,
+					map:map,
+				 });
 				 geocoder.getLocation(data.place, function(status, result) {
 				     if (status === 'complete' && result.info === 'OK') {
 				          placell=result.geocodes[0].location;
 				 		  obj.path.push(placell)
+						  var dest_marker = new AMap.Marker({
+						      position: placell,   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+						  	  cursor: "pointer",
+						  	  labelzIndex:120,
+						  	  map:map,
+						  });
 						  var polyline = new AMap.Polyline({
 						      path: obj.path,  
 						  	  map:map,
 							  labelzIndex:130,
 						      borderWeight: 2, // 线条宽度，默认为 1
-						      strokeColor: 'green', // 线条颜色
+						      strokeColor: '#aaff00', // 线条颜色
 						      lineJoin: 'round' // 折线拐点连接处样式
 						  });
 						  if(obj.isSafe===false){
-						  	polyline.setOptions({strokeColor:"#ff8033"})
+						  	polyline.setOptions({strokeColor:"#ff0000"})
 						  } 
 						  console.log(map);
 						  
